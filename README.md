@@ -24,9 +24,15 @@ As a stretch goal, we may try to design and implement a simplified version of an
 
 ### Work Plan
 11/29/18 - Finish initial research and begin to design hardware
+
 12/2/18 - Continue more in-depth research, begin writing report, and continue designing hardware
+
 12/5/18 - Finish first draft of report, begin implementing hardware in Verilog, work on documentation
+
 12/8/18 - Finish Verilog implementation
+
 12/9/18 - Finish documentation
+
 12/10/18 - Finish report, work on poster or demo
+
 12/11/18 - Finish poster/demo
