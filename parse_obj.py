@@ -4,6 +4,7 @@ from operator import add
 import itertools
 import numpy as np
 
+
 def translate(vertex, xt=0, yt=0, zt=0):
     """Translate the object"""
     temp = vertex
@@ -19,12 +20,12 @@ def translate(vertex, xt=0, yt=0, zt=0):
     return res[0:3]
 
 
-def lightItUp(face, lighting_vector=[1.3,2.1,1.2]):
-    """Lighting"""
-    face_v1 = list(map(sub, face[1], face[0]))
-    face_v2 = list(map(sub, face[2], face[0]))
-    cross = np.cross(face_v1, face_v2)
-    dotprod = dot(cross, lighting_vector)
+# def lightItUp(face, lighting_vector=[1.3,2.1,1.2]):
+#     """Lighting"""
+#     face_v1 = list(map(sub, face[1], face[0]))
+#     face_v2 = list(map(sub, face[2], face[0]))
+#     cross = np.cross(face_v1, face_v2)
+#     dotprod = dot(cross, lighting_vector)
 
 
 def dot(K, L):
@@ -33,6 +34,7 @@ def dot(K, L):
         return 0
 
     return sum(i[0] * i[1] for i in zip(K, L))
+
 
 def project(vertex, screen_width=300, screen_height=300, screen_depth=255):
     """Project onto the screen space"""
@@ -54,7 +56,7 @@ def Bresenham3D(x1, y1, z1, x2, y2, z2):
     else:
         xs = -1
     if (y2 > y1):
-		ys = 1
+        ys = 1
     else:
         ys = -1
     if (z2 > z1):
@@ -62,84 +64,85 @@ def Bresenham3D(x1, y1, z1, x2, y2, z2):
     else:
         zs = -1
 
-	# Driving axis is X-axis"
+    # Driving axis is X-axis"
     if (dx >= dy and dx >= dz):
         p1 = 2 * dy - dx
         p2 = 2 * dz - dx
         while (x1 != x2):
             x1 += xs
             if (p1 >= 0):
-            	y1 += ys
-            	p1 -= 2 * dx
+                y1 += ys
+                p1 -= 2 * dx
             if (p2 >= 0):
-            	z1 += zs
-            	p2 -= 2 * dx
+                z1 += zs
+                p2 -= 2 * dx
             p1 += 2 * dy
             p2 += 2 * dz
             ListOfPoints.append([x1, y1, z1])
 
-	# Driving axis is Y-axis"
+    # Driving axis is Y-axis"
     elif (dy >= dx and dy >= dz):
-    	p1 = 2 * dx - dy
-    	p2 = 2 * dz - dy
-    	while (y1 != y2):
-    		y1 += ys
-    		if (p1 >= 0):
-    			x1 += xs
-    			p1 -= 2 * dy
-    		if (p2 >= 0):
-    			z1 += zs
-    			p2 -= 2 * dy
-    		p1 += 2 * dx
-    		p2 += 2 * dz
-    		ListOfPoints.append([x1, y1, z1])
+        p1 = 2 * dx - dy
+        p2 = 2 * dz - dy
+        while (y1 != y2):
+            y1 += ys
+            if (p1 >= 0):
+                x1 += xs
+                p1 -= 2 * dy
+            if (p2 >= 0):
+                z1 += zs
+                p2 -= 2 * dy
+            p1 += 2 * dx
+            p2 += 2 * dz
+            ListOfPoints.append([x1, y1, z1])
 
-	# Driving axis is Z-axis"
+    # Driving axis is Z-axis"
     else:
-    	p1 = 2 * dy - dz
-    	p2 = 2 * dx - dz
-    	while (z1 != z2):
-    		z1 += zs
-    		if (p1 >= 0):
-    			y1 += ys
-    			p1 -= 2 * dz
-    		if (p2 >= 0):
-    			x1 += xs
-    			p2 -= 2 * dz
-    		p1 += 2 * dy
-    		p2 += 2 * dx
-    		ListOfPoints.append([x1, y1, z1])
+        p1 = 2 * dy - dz
+        p2 = 2 * dx - dz
+        while (z1 != z2):
+            z1 += zs
+            if (p1 >= 0):
+                y1 += ys
+                p1 -= 2 * dz
+            if (p2 >= 0):
+                x1 += xs
+                p2 -= 2 * dz
+            p1 += 2 * dy
+            p2 += 2 * dx
+            ListOfPoints.append([x1, y1, z1])
     return ListOfPoints
 
-z_buffer = [[[255] for j in range(300)] for i in range(300)]
-color_buffer = [[[j] for j in range(300)] for i in range(300)]
+
+z_buffer = [[255 for j in range(300)] for i in range(300)]
+color_buffer = [[0 for j in range(300)] for i in range(300)]
+
+
 def raster(edges):
     """Raster"""
     for edge in edges:
-        print(edge)
         for each in edge:
-            print(each[2])
-            # print(z_buffer[each[0]])
-            if each[2] < z_buffer[each[0]][each[1]] :
+            if each[2] < z_buffer[each[0]][each[1]]:
                 z_buffer[each[0]][each[1]] = each[2]
                 color_buffer[each[0]][each[1]] = 255
+
 
 def create_pgm(pixel_map):
     ''' Takes in list and creates a pgm file. '''
     filename = 'test.pgm'
-    fout = open(filename, 'wb')
-    pgm_str = "P2\n#optional comment line\n200 200\n255\n"
+    fout = open(filename, 'w')
+    pgm_str = "P2\n#optional comment line\n300 300\n255\n"
     for row in pixel_map:
         for pixel in row:
-            pgm_str.append("pixel_color")
-        pgm_str.append("\n")
+            pgm_str += str(pixel) + " "
+        pgm_str += ("\n")
     fout.write(pgm_str)
     fout.close()
 
 
 if __name__ == "__main__":
 
-    objFile = open('triangle.obj', 'r')
+    objFile = open('tetrahedron.obj', 'r')
 
     vertices = []
     faces = []
@@ -165,7 +168,7 @@ if __name__ == "__main__":
     # print(vertices)
     edges = []
     projection = []
-    #"""Projection"""
+    """Projection"""
     for i, face in enumerate(new_faces):
         face_pr = []
         for vertex in face:
@@ -183,11 +186,14 @@ if __name__ == "__main__":
 
     # Plot it onto the screen
     for face in edges:
-        print(face)
+        # print(edges[0][0])
         raster(face)
 
         # plottable_edges.append(Bresenham3D(vertex.x, ...))
-    #
+    for row in color_buffer:
+        for colomn in row:
+            if colomn != 0:
+                print(colomn)
     # print(vertices)
     # print(faces)
     create_pgm(color_buffer)
