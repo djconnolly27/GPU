@@ -1,8 +1,16 @@
 # import numpy as HELLOJOSH
-from operator import add
+# from operator import add
 # from operator import subtract
-import itertools
-import numpy as np
+# import itertools
+# import numpy as np
+import time, math
+
+width = 300
+height = 300
+depth = 255
+# Initiaize Z buffer with max depth and color buffer to be a white canvas to start
+z_buffer = [[depth for j in range(width)] for i in range(300)]
+color_buffer = [[255 for j in range(width)] for i in range(300)]
 
 
 def translate(vertex, xt=0, yt=0, zt=0):
@@ -36,7 +44,7 @@ def dot(K, L):
     return sum(i[0] * i[1] for i in zip(K, L))
 
 
-def project(vertex, screen_width=300, screen_height=300, screen_depth=255):
+def project(vertex, screen_width=width, screen_height=height, screen_depth=depth):
     """Project onto the screen space"""
     new_x = int((((vertex[0]/4)+1)/2)*screen_width)
     new_y = int((((vertex[1]/4)+1)/2)*screen_height)
@@ -114,24 +122,20 @@ def Bresenham3D(x1, y1, z1, x2, y2, z2):
     return ListOfPoints
 
 
-z_buffer = [[255 for j in range(300)] for i in range(300)]
-color_buffer = [[0 for j in range(300)] for i in range(300)]
-
-
 def raster(edges):
     """Raster"""
     for edge in edges:
         for each in edge:
             if each[2] < z_buffer[each[0]][each[1]]:
                 z_buffer[each[0]][each[1]] = each[2]
-                color_buffer[each[0]][each[1]] = 255
+                color_buffer[each[0]][each[1]] = 0
 
 
 def create_pgm(pixel_map):
     ''' Takes in list and creates a pgm file. '''
-    filename = 'test.pgm'
-    fout = open(filename, 'w')
-    pgm_str = "P2\n#optional comment line\n300 300\n255\n"
+    filename = time.strftime("%Y%m%d-%H%M%S")
+    fout = open(filename+".pgm", 'w')
+    pgm_str = "P2\n#optional comment line\n"+str(width)+" "+str(height)+"\n"+str(depth)+"\n"
     for row in pixel_map:
         for pixel in row:
             pgm_str += str(pixel) + " "
@@ -142,7 +146,7 @@ def create_pgm(pixel_map):
 
 if __name__ == "__main__":
 
-    objFile = open('tetrahedron.obj', 'r')
+    objFile = open('triangle.obj', 'r')
 
     vertices = []
     faces = []
@@ -161,7 +165,7 @@ if __name__ == "__main__":
     for i, face in enumerate(faces):
         face_a = []
         for vertex in face:
-            face_a.append(translate(vertex, 1, 1))
+            face_a.append(translate(vertex, xt=0, yt=1))
         new_faces.append(face_a)
     # print("translated faces\n",new_faces, "\n") #"""Debug if neeeded"""
 
@@ -189,83 +193,5 @@ if __name__ == "__main__":
         # print(edges[0][0])
         raster(face)
 
-        # plottable_edges.append(Bresenham3D(vertex.x, ...))
-    for row in color_buffer:
-        for colomn in row:
-            if colomn != 0:
-                print(colomn)
-    # print(vertices)
-    # print(faces)
     create_pgm(color_buffer)
     objFile.close()
-# finalTexture = open('finalTexture.txt', 'w')
-# finalVertex = open('finalVertex.txt', 'w')
-#
-#
-# vertexList = []
-# textureList = []
-#
-# finalVertexList = []
-# finalTextureList = []
-#
-# for line in objFile:
-# 	split = line.split()
-	#if blank line, skip
-	# if not len(split):
-	# 	continue
-	# if split[0] == "v":
-	# 	vertexList.append(split[1:])
-	# elif split[0] == "vt":
-	# 	textureList.append(split[1:])
-	# elif split[0] == "f":
-	# 	count=1
-	# 	firstSet=[]
-	# 	secondSet=[]
-	# 	firstTextureSet=[]
-	# 	secondTextureSet = []
-	# 	while count<5:
-	# 		removeSlash = split[count].split('/')
-	# 		if count == 1:
-	# 			firstSet.append(vertexList[int(removeSlash[0])-1])
-	# 			secondSet.append(vertexList[int(removeSlash[0])-1])
-	# 			firstTextureSet.append(textureList[int(removeSlash[1])-1])
-	# 			secondTextureSet.append(textureList[int(removeSlash[1])-1])
-	# 		elif count == 2:
-	# 			firstSet.append(vertexList[int(removeSlash[0])-1])
-	# 			firstTextureSet.append(textureList[int(removeSlash[1])-1])
-	# 		elif count == 3:
-	# 			firstSet.append(vertexList[int(removeSlash[0])-1])
-	# 			secondSet.append(vertexList[int(removeSlash[0])-1])
-	# 			firstTextureSet.append(textureList[int(removeSlash[1])-1])
-	# 			secondTextureSet.append(textureList[int(removeSlash[1])-1])
-	# 		elif count == 4:
-	# 			secondSet.append(vertexList[int(removeSlash[0])-1])
-	# 			secondTextureSet.append(textureList[int(removeSlash[1])-1])
-    #
-	# 		count+=1
-	# 	finalVertexList.append(firstSet)
-	# 	finalVertexList.append(secondSet)
-	# 	finalTextureList.append(firstTextureSet)
-	# 	finalTextureList.append(secondTextureSet)
-#
-#
-# vertexCount = 0
-# for item in finalVertexList:
-# 	for cordinateTrio in item:
-# 		for cordinate in cordinateTrio:
-# 			finalVertex.write(str(cordinate)+'f*x, ')
-# 	vertexCount += 1
-#
-# textureCount = 0
-# for item in finalTextureList:
-# 	for cordinateTrio in item:
-# 		for cordinate in cordinateTrio:
-# 			finalTexture.write(str(cordinate)+'f, ')
-# 	textureCount += 1
-#
-# print ("Total vertices: " + str(vertexCount*3))
-# print ("Total texture cordinates: " + str(vertexCount*2))
-#
-# objFile.close()
-# finalTexture.close()
-# finalVertex.close()
