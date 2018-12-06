@@ -86,7 +86,7 @@
 									<p>Usually, it is necessary to interpolate all the discrete points on each face through barycentric 
 									coordinates to make a non-hollow surface. However, for development simplicity, we chose to only interpolate
 									the three edges between two of the three vertices in a face in the 3D screen space. The interpolation is done
-									using <a href="https://github.com/djconnolly27/GPU/blob/6d63dd801eb8ea4eec3b58d151a6568ede2e625a/parse_obj.py#L55>"Bresenham's line algorithm</a>. Two buffers are essential for then
+									using</p> <p><a href="https://github.com/djconnolly27/GPU/blob/6d63dd801eb8ea4eec3b58d151a6568ede2e625a/parse_obj.py#L55>"Bresenham's line algorithm</a></p>. <p>Two buffers are essential for then
 									projecting the 3D screen space onto a 2D grey-scale screen/bitmap. As the two dimensional grey-scale bitmap
 									can be seen as a matrix, a Z buffer and a Color buffer can be each seen as a matrix who entries are the value
 									the buffers for a given pixel (x, y) within that 2D space. For each pixel in the 2D space, the Z buffer
