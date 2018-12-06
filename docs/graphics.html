@@ -55,11 +55,47 @@
 									in the high-level programming language Python. In this simulation, we read in data regarding
 									the positions of several vertices that combine to form triangular faces before transforming 
 									the image and ultimately outputting a bitmap describing the image.</p>
-									<h3>Object Parsing and Transformation</h3>
+									<h2>Object Parsing and Transformation</h2>
 									<p>To begin, we read in an object file that typically specifies the vertices and the faces
 									present in the 3D object. The example below is that of a tetrahedron in .OBJ format. Each 
 									line that starts with "V" specifies the coordinates of a given vertex, and each that starts
 									with "F" specifies the three vertices that makes up a triangular face. </p>
+									<h2>Lighting</h2>
+									<p>Naturally, we must next calculate how lighting affects the appearance of the 3D object. 
+									To find the intensity of the light falling on a given point on the object, and thus the
+									brightness of the object at that point, we dot a lighting vector $\mathbf{l}$ with the
+									vector normal to each of the object's surfaces. We compute this normal vector $\hat{\mathbf{n}}$
+									by taking the cross product of two of the face's edge vectors and normalizing by dividing by the
+									magnitude of this cross product. </p>
+									<p>Equation 2 here</p>
+									<p>The brightness of the face is thus proportional to $\hat{\mathbf{n}}\cdot\mathbf{l}$.
+									In order to speed up the development of our simulation and avoid stalling our progress to learn
+									computer graphics, we did not implement this step in our Python code. </p>
+									<h2>Projection</h2>
+									<p>In order to project the 3D object onto the screen space available, we must perform another 
+									series of matrix multiplications. We perform a perspective projection by imagining the actual
+									position of the object behind the screen and some focal point, ideally where the user's eyes 
+									are, in front of the screen and projecting the image onto screen such that the projected outlines
+									of the image converge to the focal point. In our example, we perform these projections as follows,
+									dividing only by powers of two to allow division by bit-shifting:</p>
+									<p>Equation 3 here</p>
+									<p>This operation can also be implemented in multiple stage of matrix multiplication.</p>
+									<p>Equation 4 - 7 here</p>
+									<p>Through this conversion, we made a majority of our operations into matrix multiplication, which would allow large parallelism in hardware and its reuse.</p>
+									<h2>Rasterization</h2>
+									<p>Usually, it is necessary to interpolate all the discrete points on each face through barycentric 
+									coordinates to make a non-hollow surface. However, for development simplicity, we chose to only interpolate
+									the three edges between two of the three vertices in a face in the 3D screen space. The interpolation is done
+									using Bresenham's line algorithm (See Appendix \ref{Bresenham}). Two buffers are essential for then
+									projecting the 3D screen space onto a 2D grey-scale screen/bitmap. As the two dimensional grey-scale bitmap
+									can be seen as a matrix, a Z buffer and a Color buffer can be each seen as a matrix who entries are the value
+									the buffers for a given pixel (x, y) within that 2D space. For each pixel in the 2D space, the Z buffer
+									initiates with the furthest Z screen space. Only when a point in the 3D screen space with the same x and
+									y value has a smaller Z value would Z(x, y) updates to that smaller Z value and allow the Color buffer to update
+									to the new color value. In this way, a geometry that is behind and obstructed would be painted over rather painting
+									over the geometries in front of it, which causes incorrect display. The Python code for the two buffer operation is
+									shown below.</p>
+
 									<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
 									ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
 									eget quam rutrum bibendum. Proin pellentesque diam non ligula commodo tempor. Vivamus
