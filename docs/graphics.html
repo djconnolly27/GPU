@@ -19,8 +19,8 @@
 
 					<!-- Logo -->
 						<div id="logo">
-							<h1><a href="index.html">Computer Graphics</a></h1>
-							<p>Delve deeper into computer graphics</p>
+							<h1><a href="index.html">Raster Graphics</a></h1>
+							<p>Basics of computer graphics</p>
 						</div>
 
 					<!-- Nav -->
@@ -28,7 +28,7 @@
 							<ul>
 								<li class="current"><a href="index.html">Home</a></li>
 								<li><a href="rays.html">Ray Tracing</a></li>
-								<li><a href="graphics.html">Computer Graphics</a></li>
+								<li><a href="graphics.html">Raster Graphics</a></li>
 								<li><a href="design.html">GPU Design</a></li>
 							</ul>
 						</nav>
@@ -44,25 +44,22 @@
 							<div id="content">
 								<article class="box post">
 									<header class="style1">
-										<h2>Lorem ipsum dolor sit amet magna egestas<br class="mobile-hide" />
+										<h2>Graphics Pipeline<br class="mobile-hide" />
 										morbi bibendum sed malesuada</h2>
 										<p>Tempus feugiat veroeros sed nullam dolore</p>
 									</header>
 									<a href="#" class="image featured">
 										<img src="images/pic01.jpg" alt="" />
 									</a>
-									<p>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget.
-									odio eleifend. Duis commodo fringilla commodo. Aliquam erat volutpat. Vestibulum
-									facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-									tempus euismod. Vestibulum ante ipsum primis in faucibus.</p>
-									<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
-									habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
-									bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
-									lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
-									Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
-									magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
-									leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
-									amet risus elit.</p>
+									<p>To gain a basic understanding of the graphics pipeline, we first implemented a simulation
+									in the high-level programming language Python. In this simulation, we read in data regarding
+									the positions of several vertices that combine to form triangular faces before transforming 
+									the image and ultimately outputting a bitmap describing the image.</p>
+									<h3>Object Parsing and Transformation</h3>
+									<p>To begin, we read in an object file that typically specifies the vertices and the faces
+									present in the 3D object. The example below is that of a tetrahedron in .OBJ format. Each 
+									line that starts with "V" specifies the coordinates of a given vertex, and each that starts
+									with "F" specifies the three vertices that makes up a triangular face. </p>
 									<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
 									ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
 									eget quam rutrum bibendum. Proin pellentesque diam non ligula commodo tempor. Vivamus
