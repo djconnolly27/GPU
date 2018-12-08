@@ -10,6 +10,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script type="text/javascript"
+  		src="http://www.maths.nottingham.ac.uk/personal/drw/LaTeXMathML.js">
+  		</script>
 	</head>
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
@@ -52,6 +55,24 @@
 										<img src="images/pic01.jpg" alt="" />
 									</a>
 									<h2>Triangles</h2>
+									<p>Triangles are one of the most important primitives that make up the virtual space of 3D 
+									modeling. Triangles can be easily store by the locations of its three vertex. Many of the 3D 
+									model file types do exactly that and reconstruct a full surface or object by specifying 
+									different combinations of three vertices that make up the different triangular faces on a 3D 
+									object. Furthermore, triangular benefits from barycentric coordinate system that allow any 
+									point on the triangle to be interpolated as a linear combination of the three vertex values</p>
+									<p>If we treat the coordinates of each vertex as a position vector inside an original coordinate 
+									system, a non-orthogonal coordinate system can be constructed for the plane in which the triangle 
+									lies in. The two major axes of such a coordinate system are the difference vectors of two of the 
+									vertices from the same vertex. </p>
+									<center><img src="images!!" alt="Insert pic" /></center>
+									<p>With barycentric coordinate systems, the coordinates of every point on the triangle can be easily 
+									interpolated. The same applies to the colors. Given $\mathbf{c_0}$, $\mathbf{c_1}$ and $\mathbf{c_2}$ 
+									at the three vertices of the triangle, the color at a given point ($\alpha, \beta, \gamma$) is given by</p>
+									<center><p>$\mathbf{c(\alpha, \beta, \gamma)} = \alpha\mathbf{c_0} + \beta\mathbf{c_1} + \gamma\mathbf{c_2}$</p></center>
+									<p>As shown, the information regarding a whole triangle, its shape and color, can be easily derived from the basic information
+									regarding only three points, proving triangles to be a powerful primitive that is used to efficiently
+									construct 3D shapes.</p>
 									<p>To gain a basic understanding of the graphics pipeline, we first implemented a simulation
 									in the high-level programming language Python. In this simulation, we read in data regarding
 									the positions of several vertices that combine to form triangular faces before transforming 
@@ -68,7 +89,7 @@
 									vector normal to each of the object's surfaces. We compute this normal vector $\hat{\mathbf{n}}$
 									by taking the cross product of two of the face's edge vectors and normalizing by dividing by the
 									magnitude of this cross product. </p>
-									<p>Equation 2 here</p>
+									<center><p>$\hat{\mathbf{n}} = \frac{\mathbf{e_0}\times\mathbf{e_1}}{\mid\mathbf{e_0}\times\mathbf{e_1}\mid}$</p></center>
 									<p>The brightness of the face is thus proportional to $\hat{\mathbf{n}}\cdot\mathbf{l}$.
 									In order to speed up the development of our simulation and avoid stalling our progress to learn
 									computer graphics, we did not implement this step in our Python code. </p>
@@ -79,7 +100,7 @@
 									are, in front of the screen and projecting the image onto screen such that the projected outlines
 									of the image converge to the focal point. In our example, we perform these projections as follows,
 									dividing only by powers of two to allow division by bit-shifting:</p>
-									<p>Equation 3 here</p>
+									<center><p>$screen-[x,y,z] = ((([x,y,z]/4)+1)/2)*screen-[width,height,depth]$</p></center>
 									<p>This operation can also be implemented in multiple stage of matrix multiplication.</p>
 									<p>Equation 4 - 7 here</p>
 									<p>Through this conversion, we made a majority of our operations into matrix multiplication, which would allow large parallelism in hardware and its reuse.</p>
@@ -96,23 +117,6 @@
 									to the new color value. In this way, a geometry that is behind and obstructed would be painted over rather painting
 									over the geometries in front of it, which causes incorrect display. The Python code for the two buffer operation is
 									shown below.</p>
-									<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
-									ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
-									eget quam rutrum bibendum. Proin pellentesque diam non ligula commodo tempor. Vivamus
-									eget urna nibh. Curabitur non fringilla nisl. Donec accumsan interdum nisi, quis
-									tincidunt felis sagittis eget. Donec elementum ligula dignissim sem pulvinar non semper
-									odio eleifend. Duis commodo fringilla commodo. Aliquam erat volutpat. Vestibulum
-									facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-									tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-									posuere cubilia.</p>
-									<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
-									habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
-									bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
-									lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
-									Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
-									magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
-									leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
-									amet risus elit.</p>
 								</article>
 							</div>
 

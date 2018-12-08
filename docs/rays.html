@@ -10,6 +10,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script type="text/javascript"
+  		src="http://www.maths.nottingham.ac.uk/personal/drw/LaTeXMathML.js">
+  		</script>
 	</head>
 	<body class="no-sidebar is-preload">
 		<div id="page-wrapper">
@@ -51,8 +54,78 @@
 									<a href="#" class="image featured">
 										<img src="images/pic01.jpg" alt="" />
 									</a>
+									<p>When people normally think of the path a light travels, one would start from the light 
+									source with a light ray. The light ray would proceed to run into an object and reflect 
+									off the surface. Finally, those light rays would end up in your eyes and allow you to perceive 
+									light the way you do. However, this is not the process that takes place in the computer 
+									graphics world. Even with a single point as the light source, the light rays from the single 
+									point would go out in every direction inside the virtual 3D space. Some of them may be heading 
+									in a direction of no return while others would be simply blocked by objects in the way. In 
+									neither of the cases would the light enter your eye. As those light rays become irrelevant how 
+									you perceive the world, the elimination of such rays would significantly reduce the amount of 
+									computation done. The way to know whether we care about a light ray, not surprisingly, begins 
+									its journey at “the eye”, or the viewing point inside the virtual 3D space. As the ray cast 
+									into the model space gets reflected off of a surface and finally reach a light source, the 
+									patch of object surface would then computationally rendered with the added effects of light.</p>
+									<p>Ray tracing provides a lot of benefits over traditional raster graphics.</p>
 									<h2>Ray-triangle Intersection Test</h2>
+									<p>As mentioned in the raster graphics, triangles made up one of the most important primitives 
+									that are used to construct a 3D object thanks to its low-cost long-term storage and versatile 
+									geometric property. A ray cast onto a triangle based 3D model is bound to hit one of the triangles. 
+									Determining the exact triangle that insects with the light ray is thus an unavoidable task in the ray 
+									tracing world.</p>
+									<p>From barycentric coordinate system, we know that a point, given triangle $\mathbf{ABC}$, can be expressed as</p>
+									<center><p>$\mathbf{p}(\gamma, \beta) = \gamma(\mathbf{c}-\mathbf{a})+\beta(\mathbf{b}-\mathbf{a})+\mathbf{a}$</p></center>
+									<p>At the same time, the light ray we cast from a viewing point $\mathbf{e}$ through a pixel point $\mathbf{s}$ is given by</p>
+									<center><p>$\mathbf{r}=\mathbf{e}+\mathbf{d}t$</p></center>
+									<center><p>$with \mathbf{d} = \mathbf{s}-\mathbf{e}$</p></center>
+									<p>We can find if there is an intersection between the plane of the triangle and the light ray and where by equating the two equations
+									and solve for $\beta, \gamma$, and $t$</p>
+									<center><p>$\mathbf{e}+\mathbf{d}t = \gamma(\mathbf{c}-\mathbf{a})+\beta(\mathbf{b}-\mathbf{a})+\mathbf{a}$</p></center>
+									<p>The vector equation can be broken up as three equations</p>
+									<center><p>$x_e+x_dt = x_a+\beta(x_b-x_a)+\gamma(x_c-x_a)$</p></center>
+									<center><p>$y_e+y_dt = y_a+\beta(y_b-y_a)+\gamma(y_c-y_a)$</p></center>
+									<center><p>$z_e+z_dt = z_a+\beta(z_b-z_a)+\gamma(z_c-z_a)$</p></center>
+									<p>which can rewritten in matrix form as the following </p>
+									<center><p>$matrix form$</p></center>
+									<p>With Cramer’s rule, we know that for an matrix multiplication $\mathbf{A}\vec{x}=\vec{b}$ assuming $\mathbf{A}$ invertible, 
+									the solution to $x_i$, which is the ith entry of the unknown vector, is given by</p>
+									<center><p>$x_i = \frac{det[\mathbf{A_i}]}{det[\mathbf{A}]}$</p></center>
+									<p>where $\mathbf{A_i}$ stands for the matrix $\mathbf{A}$ with ith column replaced with $\vec{b}$.</p>
+									<center><p>$\beta = \frac{\begin{vmatrix}x_e-x_a &x_c-x_a &-x_d\\y_e-y_a &y_c-y_a &-y_d\\z_e-z_a &z_c-z_a &-z_d\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}$</p></center>
+									<center><p>$\gamma= \frac{\begin{vmatrix}x_b-x_a &x_e-x_a &-x_d\\y_b-y_a &y_e-y_a &-y_d\\z_b-z_a &z_e-z_a &-z_d\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}$</p></center>
+									<center><p>$\gamma= \frac{\begin{vmatrix}x_b-x_a &x_c-x_a &x_e-x_a\\y_b-y_a &y_c-y_a &y_e-y_a\\z_b-z_a &z_c-z_a &y_e-y_a\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}$</p></center>
+									<p>Nonetheless, for he given point of intersection to sit within the triangle, we would need the solutions to abide by the following</p>
+									<center><p>$\gamma + \beta < 1$</p></center>
+									<center><p>$\gamma > 0$</p></center>
+									<center><p>$\beta > 0$</p></center>
+									<center><p>$t_{min} < t < t_{max}$</p></center>
+									<p>t_{min} and t_{max} specify the block region within which the triangles are located. Such regions is discussed in the next section </p>
 									<h2>Bounding Box</h2>
+									<p>Ray-triangle intersection tests become expensive as a direct test would require checking every single triangle 
+									to determine the relevant triangles. The size of the problem grow linearly with the number of triangles 
+									within a 3D scene and quickly become not manageable. Various techniques can be employed to achieve sub linear 
+									performance. “Divide and conquer” with bounding boxes is one of efficient ways to achieve the performance. We 
+									first take a look at 2D bounding box.</p>
+									<center><img src="images!!" alt="Insert pic" /></center>
+									<p>For a 2D bounding box, its four edges can be represented as</p>
+									<center><p>$x = x_{min}$</p></center>
+									<center><p>$x = x_{max}$</p></center>
+									<center><p>$y = y_{min}$</p></center>
+									<center><p>$y = y_{max}$</p></center>
+									<p>As a light ray is parameterized as $f=x_e+tx_d$, finding the t at which the light ray intersects with a given ray is </p>
+									<center><p>$t_{xmin} = \frac{x_{min}-x_e}{x_d}$</p></center>
+									<center><p>$t_{xmax} = \frac{x_{max}-x_e}{x_d}$</p></center>
+									<center><p>$t_{ymin} = \frac{y_{min}-y_e}{y_d}$</p></center>
+									<center><p>$t_{ymax} = \frac{y_{max}-y_e}{y_d}}$</p></center>
+									<p>The only way for the light ray to intersect a box is to fulfill the following condition</p>
+									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \ne \emptyset$</p></center>
+									<p>The pseudo code for the bounding box intersection test is:</p>
+									<p>Which makes sense as if the minimum of one is larger than the maximum of the other there will not be any intersection. 
+									The following picture also illustrate this principle well.</p>
+									<center><img src="images!!" alt="Insert pic 9.16" /></center>
+									<p>The bounding box in 3D easily extend the same principle into a higher dimension.</p>
+									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \cup[t_{zmin}, t_{zmax}]\ne \emptyset$</p></center>>
 									<h2>Bounding Volume Hierarchy</h2>
 									<p>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget.
 									odio eleifend. Duis commodo fringilla commodo. Aliquam erat volutpat. Vestibulum
