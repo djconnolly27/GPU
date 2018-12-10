@@ -52,22 +52,22 @@
 										<p>Tempus feugiat veroeros sed nullam dolore</p>
 									</header> -->
 									<a href="#" class="image featured">
-										<img src="images/pic01.jpg" alt="" />
+										<img src="images/Utah_teapot.png" alt="" />
 									</a>
 									<h2>Triangles</h2>
-									<p>Triangles are one of the most important primitives that make up the virtual space of 3D 
-									modeling. Triangles can be easily store by the locations of its three vertex. Many of the 3D 
-									model file types do exactly that and reconstruct a full surface or object by specifying 
-									different combinations of three vertices that make up the different triangular faces on a 3D 
-									object. Furthermore, triangular benefits from barycentric coordinate system that allow any 
+									<p>Triangles are one of the most important primitives that make up the virtual space of 3D
+									modeling. Triangles can be easily stored by the locations of its three vertices. Many 3D
+									model file types do exactly that and reconstruct a full surface or object by specifying
+									different combinations of three vertices that make up the different triangular faces on a 3D
+									object. Furthermore, triangular shapes can benefit from barycentric coordinate system that allow any
 									point on the triangle to be interpolated as a linear combination of the three vertex values</p>
-									<p>If we treat the coordinates of each vertex as a position vector inside an original coordinate 
-									system, a non-orthogonal coordinate system can be constructed for the plane in which the triangle 
-									lies in. The two major axes of such a coordinate system are the difference vectors of two of the 
+									<p>If we treat the coordinates of each vertex as a position vector inside an original coordinate
+									system, a non-orthogonal coordinate system can be constructed for the plane in which the triangle
+									lies in. The two major axes of such a coordinate system are the difference vectors of two of the
 									vertices from the same vertex. </p>
 									<center><img src="images!!" alt="Insert pic" /></center>
-									<p>With barycentric coordinate systems, the coordinates of every point on the triangle can be easily 
-									interpolated. The same applies to the colors. Given $\mathbf{c_0}$, $\mathbf{c_1}$ and $\mathbf{c_2}$ 
+									<p>With barycentric coordinate systems, the coordinates of every point on the triangle can be easily
+									interpolated. The same applies to the colors. Given $\mathbf{c_0}$, $\mathbf{c_1}$ and $\mathbf{c_2}$
 									at the three vertices of the triangle, the color at a given point ($\alpha, \beta, \gamma$) is given by</p>
 									<center><p>$\mathbf{c(\alpha, \beta, \gamma)} = \alpha\mathbf{c_0} + \beta\mathbf{c_1} + \gamma\mathbf{c_2}$</p></center>
 									<p>As shown, the information regarding a whole triangle, its shape and color, can be easily derived from the basic information
@@ -75,15 +75,15 @@
 									construct 3D shapes.</p>
 									<p>To gain a basic understanding of the graphics pipeline, we first implemented a simulation
 									in the high-level programming language Python. In this simulation, we read in data regarding
-									the positions of several vertices that combine to form triangular faces before transforming 
+									the positions of several vertices that combine to form triangular faces before transforming
 									the image and ultimately outputting a bitmap describing the image.</p>
 									<h2>Object Parsing and Transformation</h2>
 									<p>To begin, we read in an object file that typically specifies the vertices and the faces
-									present in the 3D object. The example below is that of a tetrahedron in .OBJ format. Each 
+									present in the 3D object. The example below is that of a tetrahedron in .OBJ format. Each
 									line that starts with "V" specifies the coordinates of a given vertex, and each that starts
 									with "F" specifies the three vertices that makes up a triangular face. </p>
 									<h2>Lighting</h2>
-									<p>Naturally, we must next calculate how lighting affects the appearance of the 3D object. 
+									<p>Naturally, we must next calculate how lighting affects the appearance of the 3D object.
 									To find the intensity of the light falling on a given point on the object, and thus the
 									brightness of the object at that point, we dot a lighting vector $\mathbf{l}$ with the
 									vector normal to each of the object's surfaces. We compute this normal vector $\hat{\mathbf{n}}$
@@ -94,9 +94,9 @@
 									In order to speed up the development of our simulation and avoid stalling our progress to learn
 									computer graphics, we did not implement this step in our Python code. </p>
 									<h2>Projection</h2>
-									<p>In order to project the 3D object onto the screen space available, we must perform another 
+									<p>In order to project the 3D object onto the screen space available, we must perform another
 									series of matrix multiplications. We perform a perspective projection by imagining the actual
-									position of the object behind the screen and some focal point, ideally where the user's eyes 
+									position of the object behind the screen and some focal point, ideally where the user's eyes
 									are, in front of the screen and projecting the image onto screen such that the projected outlines
 									of the image converge to the focal point. In our example, we perform these projections as follows,
 									dividing only by powers of two to allow division by bit-shifting:</p>
@@ -105,7 +105,7 @@
 									<p>Equation 4 - 7 here</p>
 									<p>Through this conversion, we made a majority of our operations into matrix multiplication, which would allow large parallelism in hardware and its reuse.</p>
 									<h2>Rasterization</h2>
-									<p>Usually, it is necessary to interpolate all the discrete points on each face through barycentric 
+									<p>Usually, it is necessary to interpolate all the discrete points on each face through barycentric
 									coordinates to make a non-hollow surface. However, for development simplicity, we chose to only interpolate
 									the three edges between two of the three vertices in a face in the 3D screen space. The interpolation is done
 									using <a href="https://github.com/djconnolly27/GPU/blob/6d63dd801eb8ea4eec3b58d151a6568ede2e625a/parse_obj.py#L55">Bresenham's line algorithm</a>. Two buffers are essential for then
@@ -130,13 +130,13 @@
 										<img src="images/x0y0.jpeg" style="width:50%">
 										<!-- <div class="text">Caption Text</div> -->
 										</div>
-									
+
 										<div class="mySlides fade">
 										<div class="numbertext">2 / 4</div>
 										<img src="images/x1y0.jpeg" style="width:50%">
 										<!-- <div class="text">Caption Two</div> -->
 										</div>
-									
+
 										<div class="mySlides fade">
 										<div class="numbertext">3 / 4</div>
 										<img src="images/x1y1.jpeg" style="width:50%">
@@ -148,14 +148,14 @@
 										<img src="images/x0y1.jpeg" style="width:50%">
 										<!-- <div class="text">Caption Three</div> -->
 										</div>
-										</center>	
-									
+										</center>
+
 										<!-- Next and previous buttons -->
 										<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
 										<a class="next" onclick="plusSlides(1)">&#10095;</a>
 									</div>
 									<br>
-									
+
 									<!-- The dots/circles -->
 									<!-- <div style="text-align:center">
 										<span class="dot" onclick="currentSlide(1)"></span>

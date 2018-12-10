@@ -41,7 +41,7 @@
 
 			<!-- Main -->
 				<div id="main" class="wrapper style2">
-					<div class="title">No Sidebar</div>
+					<div class="title">How it Works</div>
 					<div class="container">
 
 						<!-- Content -->
@@ -55,25 +55,25 @@
 									<a href="#" class="image featured">
 										<img src="images/pic01.jpg" alt="" />
 									</a>
-									<p>When people normally think of the path a light travels, one would start from the light 
-									source with a light ray. The light ray would proceed to run into an object and reflect 
-									off the surface. Finally, those light rays would end up in your eyes and allow you to perceive 
-									light the way you do. However, this is not the process that takes place in the computer 
-									graphics world. Even with a single point as the light source, the light rays from the single 
-									point would go out in every direction inside the virtual 3D space. Some of them may be heading 
-									in a direction of no return while others would be simply blocked by objects in the way. In 
-									neither of the cases would the light enter your eye. As those light rays become irrelevant how 
-									you perceive the world, the elimination of such rays would significantly reduce the amount of 
-									computation done. The way to know whether we care about a light ray, not surprisingly, begins 
-									its journey at “the eye”, or the viewing point inside the virtual 3D space. As the ray cast 
-									into the model space gets reflected off of a surface and finally reach a light source, the 
+									<p>When people normally think of the path a light travels, one would start from the light
+									source with a light ray. The light ray would proceed to run into an object and reflect
+									off the surface. Finally, those light rays would end up in your eyes and allow you to perceive
+									light the way you do. However, this is not the process that takes place in the computer
+									graphics world. Even with a single point as the light source, the light rays from the single
+									point would go out in every direction inside the virtual 3D space. Some of them may be heading
+									in a direction of no return while others would be simply blocked by objects in the way. In
+									neither of the cases would the light enter your eye. As those light rays become irrelevant how
+									you perceive the world, the elimination of such rays would significantly reduce the amount of
+									computation done. The way to know whether we care about a light ray, not surprisingly, begins
+									its journey at “the eye”, or the viewing point inside the virtual 3D space. As the ray cast
+									into the model space gets reflected off of a surface and finally reach a light source, the
 									patch of object surface would then computationally rendered with the added effects of light.</p>
 									<p>Ray tracing provides a lot of benefits over traditional raster graphics.</p>
 									<h2>Ray-triangle Intersection Test</h2>
-									<p>As mentioned in the raster graphics, triangles made up one of the most important primitives 
-									that are used to construct a 3D object thanks to its low-cost long-term storage and versatile 
-									geometric property. A ray cast onto a triangle based 3D model is bound to hit one of the triangles. 
-									Determining the exact triangle that insects with the light ray is thus an unavoidable task in the ray 
+									<p>As mentioned in the raster graphics, triangles made up one of the most important primitives
+									that are used to construct a 3D object thanks to its low-cost long-term storage and versatile
+									geometric property. A ray cast onto a triangle based 3D model is bound to hit one of the triangles.
+									Determining the exact triangle that insects with the light ray is thus an unavoidable task in the ray
 									tracing world.</p>
 									<p>From barycentric coordinate system, we know that a point, given triangle $\mathbf{ABC}$, can be expressed as</p>
 									<center><p>$\mathbf{p}(\gamma, \beta) = \gamma(\mathbf{c}-\mathbf{a})+\beta(\mathbf{b}-\mathbf{a})+\mathbf{a}$</p></center>
@@ -89,7 +89,7 @@
 									<center><p>$z_e+z_dt = z_a+\beta(z_b-z_a)+\gamma(z_c-z_a)$</p></center>
 									<p>which can rewritten in matrix form as the following </p>
 									<center><p>$matrix form$</p></center>
-									<p>With Cramer’s rule, we know that for an matrix multiplication $\mathbf{A}\vec{x}=\vec{b}$ assuming $\mathbf{A}$ invertible, 
+									<p>With Cramer’s rule, we know that for an matrix multiplication $\mathbf{A}\vec{x}=\vec{b}$ assuming $\mathbf{A}$ invertible,
 									the solution to $x_i$, which is the ith entry of the unknown vector, is given by</p>
 									<center><p>$x_i = \frac{det[\mathbf{A_i}]}{det[\mathbf{A}]}$</p></center>
 									<p>where $\mathbf{A_i}$ stands for the matrix $\mathbf{A}$ with ith column replaced with $\vec{b}$.</p>
@@ -103,8 +103,8 @@
 									<center><p>$t_{min} < t < t_{max}$</p></center>
 									<p>t_{min} and t_{max} specify the block region within which the triangles are located. Such regions is discussed in the next section </p>
 									<h2>Bounding Box</h2>
-									<p>Ray-triangle intersection tests become expensive as a direct test would require checking every single triangle to determine the relevant 
-										triangles. The size of the problem grows linearly with the number of triangles within a 3D scene and quickly become not manageable. 
+									<p>Ray-triangle intersection tests become expensive as a direct test would require checking every single triangle to determine the relevant
+										triangles. The size of the problem grows linearly with the number of triangles within a 3D scene and quickly become not manageable.
 										Various techniques can be employed to achieve sublinear performance. “Divide and conquer” with bounding boxes is one of the efficient ways to achieve the performance. We first take a look at 2D bounding box.</p>
 									<center><img src="images!!" alt="Insert pic" /></center>
 									<p>For a 2D bounding box, its four edges can be represented as</p>
@@ -120,24 +120,28 @@
 									<p>The only way for the light ray to intersect a box is to fulfill the following condition</p>
 									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \ne \emptyset$</p></center>
 									<p>The pseudo code for the bounding box intersection test is:</p>
-									<p>Which makes sense as if the minimum of one is larger than the maximum of the other there will not be any intersection. 
+									<p>Which makes sense as if the minimum of one is larger than the maximum of the other there will not be any intersection.
 									The following picture also illustrate this principle well.</p>
 									<center><img src="images!!" alt="Insert pic 9.16" /></center>
 									<p>The bounding box in 3D easily extend the same principle into a higher dimension.</p>
 									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \cup[t_{zmin}, t_{zmax}]\ne \emptyset$</p></center>>
 									<h2>Bounding Volume Hierarchy</h2>
-									<p>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget.
-									odio eleifend. Duis commodo fringilla commodo. Aliquam erat volutpat. Vestibulum
-									facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-									tempus euismod. Vestibulum ante ipsum primis in faucibus.</p>
-									<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
-									habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
-									bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
-									lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
-									Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
-									magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
-									leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
-									amet risus elit.</p>
+									<p>In order to effectively implement this method of looking at bounding boxes, we can create a structure known as a Bounding Volume Hierarchy (BVH). A BVH is a tree structure that contains subtrees and, at its lowest levels,
+										a set of basic primitives such as triangles. This structure exploits coherence in a scene in order to break the primitives of a scene into groups. These groups, for example, might contain the entire scene at the highest level, similar
+									objects at the next level, a singular object at the next, and primitives at the last. BVH relies on an object hierarchy, which is more robust over time than a spatial hierarchy in dynamic scenes. It also contributes to better hardware performance, as
+								it can reject bounding volumes irrelevant to a given ray extremely quickly.</p>
+
+								<p>When optimizing a BVH, the intersection point of a ray with a bounding volume is actually irrelevant. Instead, all we care about is whether or not the ray intersects the volume. It then becomes important to search and store the BVH in an efficient manner.
+									In this vein, ray casting algorithms tend to perform a depth-first traversal of the BVH. Moreover, one efficient approach to storing a BVH is to maintain a tree where each node contains a reference to the left-most child, the right sibling, and the parent node. This organization allows us to store a skip node, which contains the node to which
+									we redirect our search if we arrive at a leaf or miss a bounding volume. This ensures better memory usage; though more information is stored in the tree, the nodes are stored in the order they are accessed in, providing memory coherence. [Smits 1999] Another way to improve memory performance is to cache the most recently hit object and check that object and
+									the surrounding scene first with the next rays, as they will likely be directed in quite similar directions to the last ray.
+								</p>
+
+								<p>
+									Ray packets are another technique for optimizing the process of ray tracing. By combining similar rays into packets, we can again take advantage of the parallelism existing within GPUs and specifically the SIMD architecture. 
+								</p>
+
+
 								</article>
 							</div>
 
