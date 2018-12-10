@@ -33,6 +33,7 @@
 								<li><a href="graphics.html">Raster Graphics</a></li>
 								<li><a href="rays.html">Ray Tracing</a></li>
 								<li><a href="design.html">GPU Design</a></li>
+								<li><a href="resources.html">Resources</a></li>
 							</ul>
 						</nav>
 
@@ -47,9 +48,9 @@
 							<div id="content">
 								<article class="box post">
 									<header class="style1">
-										<h2>Lorem ipsum dolor sit amet magna egestas<br class="mobile-hide" />
+										<!-- <h2>Lorem ipsum dolor sit amet magna egestas<br class="mobile-hide" />
 										morbi bibendum sed malesuada</h2>
-										<p>Tempus feugiat veroeros sed nullam dolore</p>
+										<p>Tempus feugiat veroeros sed nullam dolore</p> -->
 									</header>
 									<a href="#" class="image featured">
 										<img src="images/pic01.jpg" alt="" />
@@ -77,14 +78,44 @@
 									<p>Equation 8 - 12</p>
 									<p>As these equations illustrate, multiplication by a translation matrix can be broken up into four equations
 									that execute the same arithmetic operations on four sets of independent data with four independent outputs. </p>
-									<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
-									habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
-									bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
-									lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
-									Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
-									magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
-									leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
-									amet risus elit.</p>
+									<h2>nVidia Turing Architecture</h2>
+									<h3>Hybrid Rendering</h3>
+									<center><figure>
+										<img src="images/hybrid_pipeline.jpg" style="width:70%">
+										<figcaption>Image from SEED Division of EA from Digital Dragons 2018 Presentation</figcaption>
+									</figure></center>
+									<h3>RT Cores</h3>
+									<p>In addition to traditional fine grained multithreaded SIMD processors, nVidia's most recent <a href="https://www.nvidia.com/en-us/design-visualization/technologies/turing-architecture/">Turing
+									Architecture</a> incorporate a hardware acceleration for performing ray tracing routines. nVidia calls each one of this
+									type of special hardware module RT sore.
+									</p>
+									<p>RT cores allows the traditionally software oriented BHV transversal and ray-triangle intersection test to become
+									their own independent hardware process. While a SIMD shader would initiate the ray probe, that is, presumably figuring
+									out the proper parametric equations for the light rays, the hardware would take the ray probe and recursively search
+									through the bounding volume hierearchy until it reaches the primitive level to hand over the tasks for ray intersection
+									hardware to determine a hit or no hit. The hit ultimately determined by the test would be returned
+									to the shaders to proper shading. nVidia's Turing Architecture Whitepaper offers a good graphical 
+									comparison between Pascal Architecture (with no ray tracing hardware acceleration) and Turing Architecture(with ray tracing
+									hardware acceleration). Shaders, as RT cores are in the middle of determining hits, is freed up to perform other
+									tasks in parallel.
+									</p>
+									<center>
+									<figure>
+										<img src="images/pascal_rt_pipelineJPG.JPG	" style="width:50%">
+										<img src="images/turing_rt_pipelineJPG.JPG" style="width:50%">
+										<figcaption>Images from Page 37 on nVidia Turing GPU Architecture Whitepaper</figcaption>
+									</figure>
+									</center>
+									<h3>Performance, Energy, and Area</h3>
+									<p>As shown by the comparison of Pascal and Turing Streaming Processor(SP) designs, the latter significantly
+									differs in its addition of tensor cores(not discussed in this project) and RT cores.
+									</p>
+									<center>
+										<figure>
+											<img src="images/pascal_gp100_sm.JPG" width="600"><img src="images/turing_SM.JPG" width="300">
+											<figcaption>Images from Page 13 on nVidia NVIDIA Tesla P100 Whitepaper and Page 18 on nVidia Turing GPU Architecture Whitepaper</figcaption>
+										</figure>
+									</center>
 								</article>
 							</div>
 
@@ -92,7 +123,7 @@
 				</div>
 
 			<!-- Highlights -->
-				<section id="highlights" class="wrapper style3">
+				<!-- <section id="highlights" class="wrapper style3">
 					<div class="title">The Endorsements</div>
 					<div class="container">
 						<div class="row aln-center">
@@ -128,7 +159,7 @@
 							</div>
 						</div>
 					</div>
-				</section>
+				</section> -->
 
 				<!-- Footer -->
 					<section id="footer" class="wrapper">
