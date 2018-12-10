@@ -108,7 +108,8 @@
 									</center>
 									<h3>Performance, Energy, and Area</h3>
 									<p>As shown by the comparison of Pascal and Turing Streaming Processor(SP) designs, the latter significantly
-									differs in its addition of tensor cores(not discussed in this project) and RT cores.
+									differs in its addition of tensor cores(not discussed in this project) and RT cores. It would be interesting to
+									conduct a comparison between the two architectures.
 									</p>
 									<center>
 										<figure>
@@ -116,6 +117,88 @@
 											<figcaption>Images from Page 13 on nVidia NVIDIA Tesla P100 Whitepaper and Page 18 on nVidia Turing GPU Architecture Whitepaper</figcaption>
 										</figure>
 									</center>
+									<table style="width:100%">
+										<tr>
+										  <th>GPU Features</th>
+										  <th>GeForce GTX 1080</th>
+										  <th>GeForce RTX 2080</th>
+										</tr>
+										<tr>
+										  <td>Architecture</td>
+										  <td>Pascal</td>
+										  <td>Turing</td>
+										</tr>
+										<tr>
+											<td>SMs</td>
+											<td>20</td>
+											<td>46</td>
+										</tr>
+										<tr>
+											<td>CUDA Cores per SM</td>
+											<td>128</td>
+											<td>64</td>
+										</tr>
+										<tr>
+											<td>CUDA Cores per GPU</td>
+											<td>2560</td>
+											<td>2944</td>
+										</tr>
+										<tr>
+											<td>RT Cores</td>
+											<td>N/A</td>
+											<td>46</td>
+										</tr>
+										<tr>
+											<td>GPU Base Clock MHz</td>
+											<td>1607</td>
+											<td>1515</td>
+										</tr>
+										<tr>
+											<td>RTX-OPS (Tera-OPS)</td>
+											<td>8.9</td>
+											<td>60</td>
+										</tr>
+										<tr>
+											<td>Ray-Cast (Giga Rays/sec)</td>
+											<td>0.89</td>
+											<td>8</td>
+										</tr>
+										<tr>
+											<td>Frame Buffer Memory Size and Type</td>
+											<td>8192 MB GDDR5X</td>
+											<td>8192 MB GDDR6</td>
+										</tr>
+										<tr>
+											<td>Memory Clock (Data Rate)</td>
+											<td>10 Gbps</td>
+											<td>14 Gbps</td>
+										</tr>
+										<tr>
+											<td>Memory Clock (Data Rate)</td>
+											<td>320</td>
+											<td>448</td>
+										</tr>
+										<tr>
+											<td>L2 Cache Size</td>
+											<td>2048 KB</td>
+											<td>4096 KB</td>
+										</tr>
+										<tr>
+											<td>Transistor Count</td>
+											<td>7.2 Billion</td>
+											<td>13.6 Billion</td>
+										</tr>
+										<tr>
+											<td>Die Size</td>
+											<td>314 mm²</td>
+											<td>545 mm²</td>
+										</tr>
+										<tr>
+											<td>Thermal Design Power</td>
+											<td>180 W</td>
+											<td>225 W</td>
+										</tr>
+									  </table> 
 								</article>
 							</div>
 
