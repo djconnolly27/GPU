@@ -64,6 +64,11 @@
 									Vertices's projection from the 3D model space to the 2D screen space is another
 									chunk of heavy matrix multiplications. The interpolation and rasterization step also
 									needs to worked on over as many faces as there are to make up the 3D object.</p>
+
+									<p>Additionally, we can see how this architecture would benefit from hardware multithreading. This added
+									functionality would allow it to quickly switch between tasks while data is loaded, prepared, utilized, and stored.
+								As a result, the throughput of the system could increase dramatically for the price of only additional register files and virtual memory.  </p>
+
 									<h2>Modern GPGPU Design</h2>
 									<p>Though GPUs now utilize a variety of data flows, ranging from MIMD (Multiple Instructions,
 									Multiple Data) to SISD (Single Instruction, Single Data), they were originally designed to

@@ -74,6 +74,13 @@
 								between 75% and 95% of the time ray tracing required was dedicated to calculating the intersection points of rays with objects in the scene. As a result,
 							 methods of simplifying and accelerating that calculation have been devised and, in combination with Moore's Law, have enabled the advent of realtime ray tracing.s</p>
 
+							 		<p>In ray tracing, it is important to understand the types of rays we are casting. First, we have primary rays, which go from the viewpoint to the ray's nearest intersection point.
+										Next, we have secondary rays, which begin at the intersection points of the primary rays. These rays exist because of reflection, refraction, and shadows. In the case of shadow rays, rays are sent
+									from the nearest intersection point of the primary ray with the scene towards the light sources in the scene. If the shadow rays reach the light source unobstructed, the intersection point in question
+								can be considered to be in the shadow of some object. </p>
+
+								<center><img src="images/types_of_rays.png" alt="A Diagram depicting types of rays" /></center>
+
 									<h2>Ray-triangle Intersection Test</h2>
 									<p>As mentioned in the raster graphics, triangles made up one of the most important primitives
 									that are used to construct a 3D object thanks to its low-cost long-term storage and versatile
@@ -170,9 +177,11 @@
 							<h2>Denoising</h2>
 							<p>In order to achieve fast denoising, engineers rely upon rather complex algorithms, such as Monte Carlo methods, to generate the most realistic image with low sample rates. Monte Carlo methods comprise a group of algorithms that rely on repeated random sampling to compute numerical results. In other words, they take advantage of randomness in order to solve problems. Thus, they are fundamentally able to exploit the parallelism
 							present in graphics processing hardware necessary for ray tracing and denoising. Though they require a non-trivial amount of computational power, they work effectively because they are naturally parallel. One example of a Monte Carlo method is path tracing, or
-						Monte Carlo ray tracing, which randomly traces potential light paths in order to render a scene. By repeatedly sampling the light paths for a pixel, the pixel value eventually converges on the correct value and allows the scene to be rendered.</p>
+						Monte Carlo ray tracing, which randomly traces potential light paths in order to render a scene. To be precise, there are actually two different forms of ray tracing that utilize Monte Carlo methods. First, we can cast a ray from the viewpoint through each pixel before casting random rays from the intersection point of that primary ray. Second, we can cast many primary rays per pixel, but only trace one secondary ray for each. Combining both of these, we can achieve a useful model for randomly sampling rays in a scene. By repeatedly sampling the light paths for a pixel, the pixel value should eventually converge on the correct value and allow the scene to be rendered.</p>
 
-							<p></p>
+							<p>In conjunction with these algorithms that rely on randomness, the output of the ray tracing acceleration hardware is constantly being filtered in order to provide frames that effectively display glossy reflections, area light-soft shadows, and ambient occlusion. Researchers have yet to converge on a single methodology for this filtering, but many publications indicate
+							a reliance on cross-bilateral filters and bidirectional reflectance distribution functions (BRDF). Though we will not dive into the math of these filters, we should note that a bilateral filter essentially smooths images by calculating the intensity of each pixel with the weighted average of the surrounding pixels. Additionally, BRDFs indicate how light reflects off of a surface based on its matte or glossy
+						nature. Some literature, such as <a href="https://cs.dartmouth.edu/~wjarosz/publications/mara17towards.pdf">An Efficient Denoising Algorithm for Global Illumination</a>, indicates that by approximating the reflectance vectors of some rays with respect to the surfaces they hit, we can approximate a Monte Carlo integrator in a way that will allow us to reconstruct images almost seamlessly.  </p>
 
 
 								</article>
