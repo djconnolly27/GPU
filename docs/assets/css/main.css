@@ -3053,3 +3053,13 @@ input, select, textarea {
 	  from {opacity: .4}
 	  to {opacity: 1}
 	}
+
+	table, th, td {
+		border: 1px solid black;
+	  }
+	th, td {
+		padding: 3px;
+	}
+	table {
+		border-spacing: 5px;
+	  }
