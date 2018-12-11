@@ -80,7 +80,13 @@
 									data from the register file in order to perform that instruction as quickly as possible on all
 									of the data. This paradigm is especially useful for matrix multiplication as every entry of a
 									resulting vector represents an independent data flow that can be operated on by the same instruction.</p>
-									<p>Equation 8 - 12</p>
+									<center>
+									<img src="images/eq8.JPG" style="width: 25%"></img>
+									<p>$1(x) + 0(y) + 0(z) + 1(x_t) = x+x_t$</p>
+									<p>$0(x) + 1(y) + 0(z) + 1(y_t) = y+y_t$</p>
+									<p>$0(x) + 0(y) + 1(z) + 1(z_t) = z+z_t$</p>
+									<p>$0(x) + 0(y) + 0(z) + 1(1) = 1$</p>
+									</center>
 									<p>As these equations illustrate, multiplication by a translation matrix can be broken up
 									into four equations that execute the same arithmetic operations on four sets of independent
 									data with four independent outputs. </p>
