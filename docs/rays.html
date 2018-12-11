@@ -136,6 +136,8 @@
 									if the bounding volume for an object is simply that object, we will waste fewer calculations but need to perform more calculations overall. As a result, we generally select volumes somewhere between these two extremes, such as parallelopipeds or spheres.
 								</p>
 
+								<center><img src="images/bvh.png" alt="A Bounding Volume Hierarchy example" /></center>
+
 								<p>When optimizing a BVH, the intersection point of a ray with a bounding volume is actually irrelevant. Instead, all we care about is whether or not the ray intersects the volume. It then becomes important to search and store the BVH in an efficient manner.
 									In this vein, ray casting algorithms tend to perform a depth-first traversal of the BVH. Moreover, one efficient approach to storing a BVH is to maintain a tree where each node contains a reference to the left-most child, the right sibling, and the parent node. This organization allows us to store a skip node, which contains the node to which
 									we redirect our search if we arrive at a leaf or miss a bounding volume. This ensures better memory usage; though more information is stored in the tree, the nodes are stored in the order they are accessed in, providing memory coherence. [Smits 1999] Another way to improve memory performance is to cache the most recently hit object and check that object and
@@ -144,8 +146,8 @@
 
 								<p>
 									Ray packets are another technique for optimizing the process of ray tracing. By combining similar rays into packets, we can again take advantage of the parallelism existing within GPUs and specifically the SIMD architecture. To minimize the hardware necessary to construct these packets, we utilize ray packet sizes that are powers of two.
-									Additionally, we may approach the problem of computing ray-box overlap from the perspective of Kay and Kajiya's slabs algorithm. This algorithm essentially relies on breaking bounding volumes up into sets of planes, or slabs. These slabs are the space between two planes, such that the one plane is $d_near$ units from the origin and one is
-									 $d_far$ units from the origin, with the planes being defined by a vector normal to each surface of the bounding volume, the volume itself an intersection of bounding slabs. We then compute the intersection of a ray with a slab by computing its intersection with both slabs to compute an interval for the intersection. If we then compute the insection of the
+									Additionally, we may approach the problem of computing ray-box overlap from the perspective of Kay and Kajiya's slabs algorithm. This algorithm essentially relies on breaking bounding volumes up into sets of planes, or slabs. These slabs are the space between two planes, such that the one plane is $d_{near}$ units from the origin and one is
+									 $d_{far}$ units from the origin, with the planes being defined by a vector normal to each surface of the bounding volume, the volume itself an intersection of bounding slabs. We then compute the intersection of a ray with a slab by computing its intersection with both slabs to compute an interval for the intersection. If we then compute the insection of the
 									 intervals, we can compute the intersection of the ray with a bounding volume. Many solutions to the problem of ray-axis-aligned-bounding-box intersection tests are variants on this slab test.
 
 							</p>
