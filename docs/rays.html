@@ -72,7 +72,7 @@
 									<p>Ray tracing provides a multitude of benefits over traditional raster graphics. The reason that ray tracing is only now
 									becoming possible in real time is that it is extremely computationally expensive. In 1980, Turner Whitted of Bell Labs calculated that
 								between 75% and 95% of the time ray tracing required was dedicated to calculating the intersection points of rays with objects in the scene. As a result,
-							 methods of simplifying and accelerating that calculation have been devised and, in combination with Moore's Law, have enabled the advent of realtime ray tracing.s</p>
+							 methods of simplifying and accelerating that calculation have been devised and, in combination with Moore's Law, have enabled the advent of realtime ray tracing.</p>
 
 							 		<p>In ray tracing, it is important to understand the types of rays we are casting. First, we have primary rays, which go from the viewpoint to the ray's nearest intersection point.
 										Next, we have secondary rays, which begin at the intersection points of the primary rays. These rays exist because of reflection, refraction, and shadows. In the case of shadow rays, rays are sent
@@ -113,7 +113,7 @@
 									<center><p>$\gamma > 0$</p></center>
 									<center><p>$\beta > 0$</p></center>
 									<center><p>$t_{min} < t < t_{max}$</p></center>
-									<p>t_{min} and t_{max} specify the block region within which the triangles are located. Such regions is discussed in the next section </p>
+									<p>$t_{min}$ and $t_{max}$ specify the block region within which the triangles are located. Such regions is discussed in the next section </p>
 
 									<h2>Bounding Box</h2>
 									<p>Ray-triangle intersection tests become expensive as a direct test would require checking every single triangle to determine the relevant
@@ -159,22 +159,30 @@
 								</p>
 
 								<p>
-									Ray packets are another technique for optimizing the process of ray tracing. By combining similar rays into packets, we can again take advantage of the parallelism existing within GPUs and specifically the SIMD architecture. To minimize the hardware necessary to construct these packets, we utilize ray packet sizes that are powers of two.
-									Additionally, we may approach the problem of computing ray-box overlap from the perspective of Kay and Kajiya's slabs algorithm. This algorithm essentially relies on breaking bounding volumes up into sets of planes, or slabs. These slabs are the space between two planes, such that the one plane is $d_{near}$ units from the origin and one is
-									 $d_{far}$ units from the origin, with the planes being defined by a vector normal to each surface of the bounding volume, the volume itself an intersection of bounding slabs. We then compute the intersection of a ray with a slab by computing its intersection with both slabs to compute an interval for the intersection. If we then compute the insection of the
-									 intervals, we can compute the intersection of the ray with a bounding volume. Many solutions to the problem of ray-axis-aligned-bounding-box intersection tests are variants on this slab test.
+									Ray packets are another technique for optimizing the process of ray tracing. To minimize 
+									the hardware necessary to construct these packets, we utilize ray packet sizes that are powers of two.
+									Additionally, we may approach the problem of computing ray-box overlap from the perspective of Kay and Kajiya's 
+									slabs algorithm. This algorithm essentially relies on breaking bounding volumes up into sets of planes, or slabs. 
+									These slabs are the space between two planes, such that the one plane is $d_{near}$ units from the origin and one is
+									 $d_{far}$ units from the origin, with the planes being defined by a vector normal to each surface of the bounding volume, 
+									 the volume itself an intersection of bounding slabs. We then compute the intersection of a ray with a slab by computing its 
+									 intersection with both slabs to compute an interval for the intersection. If we then compute the intersection of the
+									 intervals, we can compute the intersection of the ray with a bounding volume. Many solutions to the problem of 
+									 ray-axis-aligned-bounding-box intersection tests are variants on this slab test.
 
 							</p>
 
 							<center><img src="images/slabs.png" alt="A depiction of how planes are combined to form slabs" /></center>
 
-							<p>
-									 The SIMD structure also allows for the testing of four rays against each box and primitive simultaneously. This proves especially useful if we are testing multiple identical rays, perhaps to acheive greater accuracy and eliminate
-									the need for denoising, although it also proves useful when testing with multiple rays that are similar but not identical as well. The rays will follow a more similar path through the ray tracing acceleration structure if they are more similar, increasing SIMD utilization from between 25% to 100% for a 4-wide SIMD structure.
-									For reference, the new real-time ray tracing hardware available today must rely on a small number of rays per pixel in addition to image reconstruction and denoising to produce photorealistic images.
-								</p>
-
-							<h2>Denoising</h2>
+							<h2>Denoising Filtering</h2>
+							Despite the enormous amount of calculation that went into tracing rays back to objects it hits and the light sources it originates from,
+							ray tracing alone is still insufficient in generating a photo realistic images.
+							<center>
+								<figure style="width: 75%">
+									<img src="images/Ray_Traced_Shadows-1spp_Noisy.png" alt="1 SPP Noisy Ray Tracing"  style="width: 70%"/><img src="images/Ray_Traced_Shadows-1spp_Denoised.png" alt="1 SPP Denoised Ray Tracing" style="width: 70%"/>									
+									<figcaption>A comparison between nosiy 1 sample per pixel ray tracing and the denoised version from	NVIDIA RTX and GameWorks Ray Tracing Technology Demonstration.</figcaption>
+								</figure>
+							</center>
 							<p>In order to achieve fast denoising, engineers rely upon rather complex algorithms, such as Monte Carlo methods, to generate the most realistic image with low sample rates. Monte Carlo methods comprise a group of algorithms that rely on repeated random sampling to compute numerical results. In other words, they take advantage of randomness in order to solve problems. Thus, they are fundamentally able to exploit the parallelism
 							present in graphics processing hardware necessary for ray tracing and denoising. Though they require a non-trivial amount of computational power, they work effectively because they are naturally parallel. One example of a Monte Carlo method is path tracing, or
 						Monte Carlo ray tracing, which randomly traces potential light paths in order to render a scene. To be precise, there are actually two different forms of ray tracing that utilize Monte Carlo methods. First, we can cast a ray from the viewpoint through each pixel before casting random rays from the intersection point of that primary ray. Second, we can cast many primary rays per pixel, but only trace one secondary ray for each. Combining both of these, we can achieve a useful model for randomly sampling rays in a scene. By repeatedly sampling the light paths for a pixel, the pixel value should eventually converge on the correct value and allow the scene to be rendered.</p>
