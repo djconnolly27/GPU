@@ -102,7 +102,7 @@
 									dividing only by powers of two to allow division by bit-shifting:</p>
 									<center><p>$screen-[x,y,z] = ((([x,y,z]/4)+1)/2)*screen-[width,height,depth]$</p></center>
 									<p>This operation can also be implemented in multiple stage of matrix multiplication.</p>
-									<p>Equation 4 - 7 here</p>
+									<center><img src="images/eq4-7.JPG" style="width: 40%"></img></center>
 									<p>Through this conversion, we made a majority of our operations into matrix multiplication, which would allow large parallelism in hardware and its reuse.</p>
 									<h2>Rasterization</h2>
 									<p>Usually, it is necessary to interpolate all the discrete points on each face through barycentric
