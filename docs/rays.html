@@ -124,12 +124,17 @@
 									The following picture also illustrate this principle well.</p>
 									<center><img src="images!!" alt="Insert pic 9.16" /></center>
 									<p>The bounding box in 3D easily extend the same principle into a higher dimension.</p>
-									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \cup[t_{zmin}, t_{zmax}]\ne \emptyset$</p></center>>
+									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \cup[t_{zmin}, t_{zmax}]\ne \emptyset$</p></center>
 									<h2>Bounding Volume Hierarchy</h2>
 									<p>In order to effectively implement this method of looking at bounding boxes, we can create a structure known as a Bounding Volume Hierarchy (BVH). A BVH is a tree structure that contains subtrees and, at its lowest levels,
 										a set of basic primitives such as triangles. This structure exploits coherence in a scene in order to break the primitives of a scene into groups. These groups, for example, might contain the entire scene at the highest level, similar
-									objects at the next level, a singular object at the next, and primitives at the last. BVH relies on an object hierarchy, which is more robust over time than a spatial hierarchy in dynamic scenes. It also contributes to better hardware performance, as
+									objects at the next level, a singular object at the next, and primitives at the last. The BVH we will utilize relies on an object hierarchy, which is more robust over time than a spatial hierarchy in dynamic scenes. It also contributes to better hardware performance, as
 								it can reject bounding volumes irrelevant to a given ray extremely quickly.</p>
+
+								<p>
+									It is important to consider the shape of the bounding volumes as well. To simplify and reduce the number of calculations, loosely constrained bounding volumes may seem the best option, but many rays that hit these volumes will still miss the object or primitive within them. In contrast,
+									if the bounding volume for an object is simply that object, we will waste fewer calculations but need to perform more calculations overall. As a result, we generally select volumes somewhere between these two extremes, such as parallelopipeds or spheres.
+								</p>
 
 								<p>When optimizing a BVH, the intersection point of a ray with a bounding volume is actually irrelevant. Instead, all we care about is whether or not the ray intersects the volume. It then becomes important to search and store the BVH in an efficient manner.
 									In this vein, ray casting algorithms tend to perform a depth-first traversal of the BVH. Moreover, one efficient approach to storing a BVH is to maintain a tree where each node contains a reference to the left-most child, the right sibling, and the parent node. This organization allows us to store a skip node, which contains the node to which
@@ -138,7 +143,18 @@
 								</p>
 
 								<p>
-									Ray packets are another technique for optimizing the process of ray tracing. By combining similar rays into packets, we can again take advantage of the parallelism existing within GPUs and specifically the SIMD architecture. 
+									Ray packets are another technique for optimizing the process of ray tracing. By combining similar rays into packets, we can again take advantage of the parallelism existing within GPUs and specifically the SIMD architecture. To minimize the hardware necessary to construct these packets, we utilize ray packet sizes that are powers of two.
+									Additionally, we may approach the problem of computing ray-box overlap from the perspective of Kay and Kajiya's slabs algorithm. This algorithm essentially relies on breaking bounding volumes up into sets of planes, or slabs. These slabs are the space between two planes, such that the one plane is $d_near$ units from the origin and one is
+									 $d_far$ units from the origin, with the planes being defined by a vector normal to each surface of the bounding volume, the volume itself an intersection of bounding slabs. We then compute the intersection of a ray with a slab by computing its intersection with both slabs to compute an interval for the intersection. If we then compute the insection of the
+									 intervals, we can compute the intersection of the ray with a bounding volume. Many solutions to the problem of ray-axis-aligned-bounding-box intersection tests are variants on this slab test.
+
+							</p>
+
+							<center><img src="images/slabs.png" alt="A depiction of how planes are combined to form slabs" /></center>
+
+							<p>
+									 The SIMD structure also allows for the testing of four rays against each box and primitive simultaneously. This proves especially useful if we are testing multiple identical rays, perhaps to acheive greater accuracy and eliminate
+									the need for denoising, although it also proves useful when testing with multiple rays that are similar but not identical as well. For reference, the new real-time ray tracing hardware available today tends to rely on one to two rays per pixel as well as denoising to produce photorealistic images.
 								</p>
 
 

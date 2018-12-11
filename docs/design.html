@@ -56,7 +56,7 @@
 										<img src="images/pic01.jpg" alt="" />
 									</a>
 									<p>The software graphics pipeline workflow already demonstrates the vast amount
-									 of parallel operations that could be done within the graphics pipeline. The transformation of a single 
+									 of parallel operations that could be done within the graphics pipeline. The transformation of a single
 									 vertex is a multiply-accumulate operation between each entry of each row of a transformation
 									matrix and each entry of the vertex position vector. For a single 3D object, each of the
 									triangular faces that make up its surface would individually applied cross product
@@ -66,14 +66,14 @@
 									needs to worked on over as many faces as there are to make up the 3D object.</p>
 									<h2>Modern GPGPU Design</h2>
 									<p>Though GPUs now utilize a variety of data flows, ranging from MIMD (Multiple Instructions,
-									Multiple Data) to SISD (Single Instruction, Single Data), they were originally designed to 
+									Multiple Data) to SISD (Single Instruction, Single Data), they were originally designed to
 									speed up SIMD (Single Instruction, Multiple Data). It is quite easy to see how this data flow
 									would benefit from enormous parallelism; the processor can take one instruction and perform the
-									corresponding operation on thousands of bits of data, much as matrix multiplication is just 
-									performing one operation on many individual elements and vectors. As a result, we begin by 
-									designing a single SIMD unit. This unit takes our instruction and requests all of the necessary 
+									corresponding operation on thousands of bits of data, much as matrix multiplication is just
+									performing one operation on many individual elements and vectors. As a result, we begin by
+									designing a single SIMD unit. This unit takes our instruction and requests all of the necessary
 									data from the register file in order to perform that instruction as quickly as possible on all
-									of the data. This paradigm is especially useful for matrix multiplication as every entry of a 
+									of the data. This paradigm is especially useful for matrix multiplication as every entry of a
 									resulting vector represents an independent data flow that can be operated on by the same instruction.</p>
 									<p>Equation 8 - 12</p>
 									<p>As these equations illustrate, multiplication by a translation matrix can be broken up into four equations
@@ -89,12 +89,12 @@
 									Architecture</a> incorporate a hardware acceleration for performing ray tracing routines. nVidia calls each one of this
 									type of special hardware module RT sore.
 									</p>
-									<p>RT cores allows the traditionally software oriented BHV transversal and ray-triangle intersection test to become
+									<p>RT cores allows the traditionally software oriented BVH transversal and ray-triangle intersection test to become
 									their own independent hardware process. While a SIMD shader would initiate the ray probe, that is, presumably figuring
 									out the proper parametric equations for the light rays, the hardware would take the ray probe and recursively search
 									through the bounding volume hierearchy until it reaches the primitive level to hand over the tasks for ray intersection
 									hardware to determine a hit or no hit. The hit ultimately determined by the test would be returned
-									to the shaders to proper shading. nVidia's Turing Architecture Whitepaper offers a good graphical 
+									to the shaders to proper shading. nVidia's Turing Architecture Whitepaper offers a good graphical
 									comparison between Pascal Architecture (with no ray tracing hardware acceleration) and Turing Architecture(with ray tracing
 									hardware acceleration). Shaders, as RT cores are in the middle of determining hits, is freed up to perform other
 									tasks in parallel.
@@ -198,7 +198,7 @@
 											<td>180 W</td>
 											<td>225 W</td>
 										</tr>
-									  </table> 
+									  </table>
 								</article>
 							</div>
 
