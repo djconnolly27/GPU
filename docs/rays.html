@@ -164,10 +164,14 @@
 							<p>
 									 The SIMD structure also allows for the testing of four rays against each box and primitive simultaneously. This proves especially useful if we are testing multiple identical rays, perhaps to acheive greater accuracy and eliminate
 									the need for denoising, although it also proves useful when testing with multiple rays that are similar but not identical as well. The rays will follow a more similar path through the ray tracing acceleration structure if they are more similar, increasing SIMD utilization from between 25% to 100% for a 4-wide SIMD structure.
-									For reference, the new real-time ray tracing hardware available today tends to rely on one to two rays per pixel as well as denoising to produce photorealistic images.
+									For reference, the new real-time ray tracing hardware available today must rely on a small number of rays per pixel in addition to image reconstruction and denoising to produce photorealistic images.
 								</p>
 
 							<h2>Denoising</h2>
+							<p>In order to achieve fast denoising, engineers rely upon rather complex algorithms, such as Monte Carlo methods, to generate the most realistic image with low sample rates. Monte Carlo methods comprise a group of algorithms that rely on repeated random sampling to compute numerical results. In other words, they take advantage of randomness in order to solve problems. Thus, they are fundamentally able to exploit the parallelism
+							present in graphics processing hardware necessary for ray tracing and denoising. Though they require a non-trivial amount of computational power, they work effectively because they are naturally parallel. One example of a Monte Carlo method is path tracing, or
+						Monte Carlo ray tracing, which randomly traces potential light paths in order to render a scene. By repeatedly sampling the light paths for a pixel, the pixel value eventually converges on the correct value and allows the scene to be rendered.</p>
+
 							<p></p>
 
 
