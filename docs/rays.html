@@ -52,9 +52,9 @@
 										morbi bibendum sed malesuada</h2>
 										<p>Tempus feugiat veroeros sed nullam dolore</p>
 									</header> -->
-									<a href="#" class="image featured">
+									<!-- <a href="#" class="image featured">
 										<img src="images/pic01.jpg" alt="" />
-									</a>
+									</a> -->
 									<p>When people normally think of the path a light travels, one would start from the light
 									source with a light ray. The light ray would proceed to run into an object and reflect
 									off the surface. Finally, those light rays would end up in your eyes and allow you to perceive
@@ -68,7 +68,9 @@
 									its journey at “the eye”, or the viewing point inside the virtual 3D space. As the ray cast
 									into the model space gets reflected off of a surface and finally reach a light source, the
 									patch of object surface would then computationally rendered with the added effects of light.</p>
-									<p>Ray tracing provides a lot of benefits over traditional raster graphics.</p>
+									<center><img src="images/ray_tracing.png" alt="A Diagram depicting ray tracing" /></center>
+									<p>Ray tracing provides a multitude of benefits over traditional raster graphics.</p>
+
 									<h2>Ray-triangle Intersection Test</h2>
 									<p>As mentioned in the raster graphics, triangles made up one of the most important primitives
 									that are used to construct a 3D object thanks to its low-cost long-term storage and versatile
@@ -102,6 +104,7 @@
 									<center><p>$\beta > 0$</p></center>
 									<center><p>$t_{min} < t < t_{max}$</p></center>
 									<p>t_{min} and t_{max} specify the block region within which the triangles are located. Such regions is discussed in the next section </p>
+
 									<h2>Bounding Box</h2>
 									<p>Ray-triangle intersection tests become expensive as a direct test would require checking every single triangle to determine the relevant
 										triangles. The size of the problem grows linearly with the number of triangles within a 3D scene and quickly become not manageable.
@@ -125,6 +128,7 @@
 									<center><img src="images!!" alt="Insert pic 9.16" /></center>
 									<p>The bounding box in 3D easily extend the same principle into a higher dimension.</p>
 									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \cup[t_{zmin}, t_{zmax}]\ne \emptyset$</p></center>
+
 									<h2>Bounding Volume Hierarchy</h2>
 									<p>In order to effectively implement this method of looking at bounding boxes, we can create a structure known as a Bounding Volume Hierarchy (BVH). A BVH is a tree structure that contains subtrees and, at its lowest levels,
 										a set of basic primitives such as triangles. This structure exploits coherence in a scene in order to break the primitives of a scene into groups. These groups, for example, might contain the entire scene at the highest level, similar
@@ -156,8 +160,12 @@
 
 							<p>
 									 The SIMD structure also allows for the testing of four rays against each box and primitive simultaneously. This proves especially useful if we are testing multiple identical rays, perhaps to acheive greater accuracy and eliminate
-									the need for denoising, although it also proves useful when testing with multiple rays that are similar but not identical as well. For reference, the new real-time ray tracing hardware available today tends to rely on one to two rays per pixel as well as denoising to produce photorealistic images.
+									the need for denoising, although it also proves useful when testing with multiple rays that are similar but not identical as well. The rays will follow a more similar path through the ray tracing acceleration structure if they are more similar, increasing SIMD utilization from between 25% to 100% for a 4-wide SIMD structure.
+									For reference, the new real-time ray tracing hardware available today tends to rely on one to two rays per pixel as well as denoising to produce photorealistic images.
 								</p>
+
+							<h2>Denoising</h2>
+							<p></p>
 
 
 								</article>
