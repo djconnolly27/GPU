@@ -66,10 +66,13 @@
 									you perceive the world, the elimination of such rays would significantly reduce the amount of
 									computation done. The way to know whether we care about a light ray, not surprisingly, begins
 									its journey at “the eye”, or the viewing point inside the virtual 3D space. As the ray cast
-									into the model space gets reflected off of a surface and finally reach a light source, the
-									patch of object surface would then computationally rendered with the added effects of light.</p>
+									into the model space gets reflected off of a surface and finally reaches a light source, the
+									patch of object surface would then be computationally rendered with the added effects of light.</p>
 									<center><img src="images/ray_tracing.png" alt="A Diagram depicting ray tracing" /></center>
-									<p>Ray tracing provides a multitude of benefits over traditional raster graphics.</p>
+									<p>Ray tracing provides a multitude of benefits over traditional raster graphics. The reason that ray tracing is only now
+									becoming possible in real time is that it is extremely computationally expensive. In 1980, Turner Whitted of Bell Labs calculated that
+								between 75% and 95% of the time ray tracing required was dedicated to calculating the intersection points of rays with objects in the scene. As a result,
+							 methods of simplifying and accelerating that calculation have been devised and, in combination with Moore's Law, have enabled the advent of realtime ray tracing.s</p>
 
 									<h2>Ray-triangle Intersection Test</h2>
 									<p>As mentioned in the raster graphics, triangles made up one of the most important primitives
