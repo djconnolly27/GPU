@@ -40,10 +40,31 @@
 				<section id="intro" class="wrapper style1">
 					<div class="title">The Project</div>
 					<div class="container">
-						<p class="style1">We developed this project in order to learn about and explain the concepts and emerging technologies that drive increasingly realistic and powerful computer graphics.</p>
-						<p class="style3">Inspired by our affinity for computer games and appreciation of good graphics, we sought specifically to understand the power of ray tracing.</p>
+						<p class="style1">We developed this project in order to learn about and explain the concepts in software and emerging technologies in hardware that drive increasingly realistic computer graphics.</p>
+						<p class="style3">Inspired by our affinity for computer games and appreciation of realistic computer graphics, we sought to learn about how those graphics are created as well as the hardware
+							that enables them, specifically focusing on ray tracing. We believed that the background in computer architecture and CPU design that we had acquired throughout the semester would guide us
+							to better understanding how graphics processing units functioned. We began by investigating the graphics pipeline and creating our own high-level software simulation of the pipeline. Though
+							that Python simulation did not directly mimic the behavior of the hardware inside a graphics processing unit, it provided us with a working knowledge of computer graphics and showed us the
+						computations necessary in the graphics pipeline. Equipped with this knowledge, we now apprehended the reasoning behind the structure of the modern graphics pipeline. Though we considered
+						implementing a SIMD unit in Verilog as well as building a more hardware-realistic software simulation of the graphics pipeline, we reevaluated our learning goals at this point in the project and
+					instead moved in a new direction. Knowing that NVIDIA had only recently revealed its new Turing architecture complete with an RT (ray tracing) core that could perform realtime ray tracing, we were
+				inspired to learn about the rendering technique known as ray tracing and the challenges that made it so difficult to perform in realtime, so we redirected our efforts in favor of a research project.
+			From that point forward, we dedicated our time to researching as much as possible about the project, spending most of our meetings discussing our findings in order to better digest the material. We hope
+		that our project will teach others about ray tracing as well as computer graphics in general and how those both relate to hardware GPU design. </p>
 					</div>
 				</section>
+
+				<section id="extensions" class="wrapper style3">
+					<div class="title">Extensions</div>
+					<div class="container">
+							<p class="style1">We intend for our project to assimilate the work on the graphics pipeline and the current state of ray tracing well enough that any Computer Architecture student can understand the topics with ease. </p>
+						<p class="style3">Along this vein, we believe that there are a few possible extensions of our project. First, one could continue to build upon our Python simulation, found on <a href="https://github.com/djconnolly27/GPU">Github</a>, in order to make it more hardware-realistic by building more instruction and data level parallelism into it
+							 and attributing some	cost in area, performance, and energy to each of the computations it performs. Second, one might construct a Verilog simulation of the graphics pipeline and perhaps even of a ray tracing pipeline. Third, one could
+						  build upon and continue our research, perhaps with a specific focus on denoising images after ray tracing or on increasing the efficiency of current ray tracing methods. </p>
+					</div>
+				</section>
+
+
 
 			<!-- Main -->
 				<section id="main" class="wrapper style2">
