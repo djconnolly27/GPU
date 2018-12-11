@@ -150,7 +150,7 @@
 									if the bounding volume for an object is simply that object, we will waste fewer calculations but need to perform more calculations overall. As a result, we generally select volumes somewhere between these two extremes, such as parallelopipeds or spheres.
 								</p>
 
-								<center><img src="images/bvh.png" alt="A Bounding Volume Hierarchy example" /></center>
+								<center><img src="images/bvh.png" alt="A Bounding Volume Hierarchy example" style="width: 80%"/></center>
 
 								<p>When optimizing a BVH, the intersection point of a ray with a bounding volume is actually irrelevant. Instead, all we care about is whether or not the ray intersects the volume. It then becomes important to search and store the BVH in an efficient manner.
 									In this vein, ray casting algorithms tend to perform a depth-first traversal of the BVH. Moreover, one efficient approach to storing a BVH is to maintain a tree where each node contains a reference to the left-most child, the right sibling, and the parent node. This organization allows us to store a skip node, which contains the node to which
@@ -159,37 +159,46 @@
 								</p>
 
 								<p>
-									Ray packets are another technique for optimizing the process of ray tracing. To minimize 
+									Ray packets are another technique for optimizing the process of ray tracing. To minimize
 									the hardware necessary to construct these packets, we utilize ray packet sizes that are powers of two.
-									Additionally, we may approach the problem of computing ray-box overlap from the perspective of Kay and Kajiya's 
-									slabs algorithm. This algorithm essentially relies on breaking bounding volumes up into sets of planes, or slabs. 
+									Additionally, we may approach the problem of computing ray-box overlap from the perspective of Kay and Kajiya's
+									slabs algorithm. This algorithm essentially relies on breaking bounding volumes up into sets of planes, or slabs.
 									These slabs are the space between two planes, such that the one plane is $d_{near}$ units from the origin and one is
-									 $d_{far}$ units from the origin, with the planes being defined by a vector normal to each surface of the bounding volume, 
-									 the volume itself an intersection of bounding slabs. We then compute the intersection of a ray with a slab by computing its 
+									 $d_{far}$ units from the origin, with the planes being defined by a vector normal to each surface of the bounding volume,
+									 the volume itself an intersection of bounding slabs. We then compute the intersection of a ray with a slab by computing its
 									 intersection with both slabs to compute an interval for the intersection. If we then compute the intersection of the
-									 intervals, we can compute the intersection of the ray with a bounding volume. Many solutions to the problem of 
+									 intervals, we can compute the intersection of the ray with a bounding volume. Many solutions to the problem of
 									 ray-axis-aligned-bounding-box intersection tests are variants on this slab test.
 
 							</p>
 
 							<center><img src="images/slabs.png" alt="A depiction of how planes are combined to form slabs" /></center>
 
-							<h2>Denoising Filtering</h2>
+							<h2>Denoising And Filtering</h2>
 							Despite the enormous amount of calculation that went into tracing rays back to objects it hits and the light sources it originates from,
-							ray tracing alone is still insufficient in generating a photo realistic images.
+							real time ray tracing alone is still insufficient in generating a photo realistic image due to the small number of rays per pixel. Various
+							filtering and denoising techniques are empolyed to generate better images. The differences in quality in various rendering techniques and
+							the presence of post processing are shown below.
 							<center>
 								<figure style="width: 75%">
-									<img src="images/Ray_Traced_Shadows-1spp_Noisy.png" alt="1 SPP Noisy Ray Tracing"  style="width: 70%"/><img src="images/Ray_Traced_Shadows-1spp_Denoised.png" alt="1 SPP Denoised Ray Tracing" style="width: 70%"/>									
-									<figcaption>A comparison between nosiy 1 sample per pixel ray tracing and the denoised version from	NVIDIA RTX and GameWorks Ray Tracing Technology Demonstration.</figcaption>
+									<img src="images/Ray_Traced_Shadows-Shadow_Mapping.png" alt="Shadow Map"  style="width: 70%"/>
+									<img src="images/Ray_Traced_Shadows-1spp_Noisy.png" alt="1 SPP Noisy Ray Tracing"  style="width: 70%"/>
+									<img src="images/Ray_Traced_Shadows-1spp_Denoised.png" alt="1 SPP Denoised Ray Tracing" style="width: 70%"/>
+									<figcaption>A comparison between nosiy 1 sample per pixel ray tracing and the denoised version from	NVIDIA RTX and GameWorks Ray Tracing
+										Technology Demonstration. At the very top is what the scene would look like with a shadow map, which is the raster graphics way of
+										generating a shadow. As viewers can see, the shadow maps appear more less natural than the softer denoised ray traced shadows.</figcaption>
 								</figure>
 							</center>
 							<p>In order to achieve fast denoising, engineers rely upon rather complex algorithms, such as Monte Carlo methods, to generate the most realistic image with low sample rates. Monte Carlo methods comprise a group of algorithms that rely on repeated random sampling to compute numerical results. In other words, they take advantage of randomness in order to solve problems. Thus, they are fundamentally able to exploit the parallelism
 							present in graphics processing hardware necessary for ray tracing and denoising. Though they require a non-trivial amount of computational power, they work effectively because they are naturally parallel. One example of a Monte Carlo method is path tracing, or
 						Monte Carlo ray tracing, which randomly traces potential light paths in order to render a scene. To be precise, there are actually two different forms of ray tracing that utilize Monte Carlo methods. First, we can cast a ray from the viewpoint through each pixel before casting random rays from the intersection point of that primary ray. Second, we can cast many primary rays per pixel, but only trace one secondary ray for each. Combining both of these, we can achieve a useful model for randomly sampling rays in a scene. By repeatedly sampling the light paths for a pixel, the pixel value should eventually converge on the correct value and allow the scene to be rendered.</p>
 
+						<center><img src="images/reflectance.png" alt="A depiction of how light reflects off surfaces" style="width: 80%"/></center>
+
 							<p>In conjunction with these algorithms that rely on randomness, the output of the ray tracing acceleration hardware is constantly being filtered in order to provide frames that effectively display glossy reflections, area light-soft shadows, and ambient occlusion. Researchers have yet to converge on a single methodology for this filtering, but many publications indicate
-							a reliance on cross-bilateral filters and bidirectional reflectance distribution functions (BRDF). Though we will not dive into the math of these filters, we should note that a bilateral filter essentially smooths images by calculating the intensity of each pixel with the weighted average of the surrounding pixels. Additionally, BRDFs indicate how light reflects off of a surface based on its matte or glossy
-						nature. Some literature, such as <a href="https://cs.dartmouth.edu/~wjarosz/publications/mara17towards.pdf">An Efficient Denoising Algorithm for Global Illumination</a>, indicates that by approximating the reflectance vectors of some rays with respect to the surfaces they hit, we can approximate a Monte Carlo integrator in a way that will allow us to reconstruct images almost seamlessly.  </p>
+							a reliance on cross-bilateral filters and bidirectional reflectance distribution functions (BRDF). Though we will not dive into the math of these filters, we can provide some background on their inner workings. For instance, BRDFs indicate how light reflects off of a surface based on its matte or glossy
+						nature. We can combine these BRDFs with the corresponding Fresnel coefficients, which describe the reflection and transmission of light, in order to create an accurate model of light's interaction with different surfaces. In <a href="https://cs.dartmouth.edu/~wjarosz/publications/mara17towards.pdf">An Efficient Denoising Algorithm for Global Illumination</a>, the authors utilize the Lambertian reflectance approximation as well, which defines surfaces
+						with brightnesses that do not vary regardless of viewing angle. They also indicate that by approximating the reflectance vectors of some rays given that the matte-ness and thus the angle of reflection stays relatively near constant over areas the display coherence in a scene, we can factor terms out of the expression for the Monte Carlo integrator in order to calculate the brightness of a surface in a way that will allow us to reconstruct images with less computation than earlier methods required. A series of bilateral filter can then be applied to smooth image or video frames by calculating the intensity of each pixel with the weighted average of the surrounding pixels. </p>
 
 
 								</article>
@@ -248,7 +257,7 @@
 								</p>
 							</header>
 								<div class="col-6 col-12-medium">
-	
+
 									<!-- Contact -->
 										<section class="feature-list small">
 											<div class="row">
@@ -271,7 +280,7 @@
 												</div>
 											</div>
 										</section>
-	
+
 								</div>
 							</div>
 							<div id="copyright">

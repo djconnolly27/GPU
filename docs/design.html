@@ -81,18 +81,18 @@
 									of the data. This paradigm is especially useful for matrix multiplication as every entry of a
 									resulting vector represents an independent data flow that can be operated on by the same instruction.</p>
 									<p>Equation 8 - 12</p>
-									<p>As these equations illustrate, multiplication by a translation matrix can be broken up 
-									into four equations that execute the same arithmetic operations on four sets of independent 
+									<p>As these equations illustrate, multiplication by a translation matrix can be broken up
+									into four equations that execute the same arithmetic operations on four sets of independent
 									data with four independent outputs. </p>
-									<p>By combining similar rays into packets, we can again take advantage of the parallelism existing 
+									<p>By combining similar rays into packets, we can again take advantage of the parallelism existing
 										within GPUs and specifically the SIMD architecture.</p>
 									<p>
-										The SIMD structure also allows for the testing of four rays against each box and primitive simultaneously. This proves 
+										The SIMD structure also allows for the testing of four rays against each box and primitive simultaneously. This proves
 										especially useful if we are testing multiple identical rays, perhaps to acheive greater accuracy and eliminate
-										the need for denoising, although it also proves useful when testing with multiple rays that are similar but not 
-										identical as well. The rays will follow a more similar path through the ray tracing acceleration structure if they 
+										the need for denoising, although it also proves useful when testing with multiple rays that are similar but not
+										identical as well. The rays will follow a more similar path through the ray tracing acceleration structure if they
 										are more similar, increasing SIMD utilization from between 25% to 100% for a 4-wide SIMD structure.
-										For reference, the new real-time ray tracing hardware available today must rely on a small number of rays per 
+										For reference, the new real-time ray tracing hardware available today must rely on a small number of rays per
 										pixel in addition to image reconstruction and denoising to produce photorealistic images.
 									</p>
 									<h2>nVidia Turing Architecture</h2>
@@ -134,7 +134,7 @@
 											<img src="images/pascal_gp100_sm.JPG" width="600"><img src="images/turing_SM.JPG" width="300">
 											<figcaption>Images from Page 13 on NVIDIA Tesla P100 Whitepaper and Page 18 on NVIDIA Turing GPU Architecture Whitepaper</figcaption>
 										</figure>
-									
+
 
 									<p>Below is a table refered in NVIDIA Turing GPU Architecture Whitepaper that compares some of the technical aspects between
 										two of the top echolon gaming graphics cards.
@@ -196,7 +196,7 @@
 											<td>14 Gbps</td>
 										</tr>
 										<tr>
-											<td>Memory Clock (Data Rate)</td>
+											<td>Memory Bandwidth (GB/sec)</td>
 											<td>320</td>
 											<td>448</td>
 										</tr>
@@ -220,8 +220,25 @@
 											<td>180 W</td>
 											<td>225 W</td>
 										</tr>
+										<tr>
+											<td>Manufacturing Process</td>
+											<td>16 nm</td>
+											<td>12 nm</td>
+										</tr>
 									  </table>
 									</center>
+									<p>While there are fewer numbers of Streaming Multiprocessors(SM) in the Pascal Architecuture, each SM individually
+									has more Streaming Processors(SP, CUDA core) than those in Turing. The decrease in the number of SP in Turing SMs processors reflects
+								  the incorporation of RT Core and Tensor Core into each SM. The different Turing architecutre is thus capable of casting almost nine times
+								  more rays than its Pascal counterpart could and perform almost six times more hybrid rendering operations(RTX-Ops). In the same time,
+								  however, we shouldn't ignore the advances in memory for the new generation of graphics cards: RTX 2080 uses GDDR6 at 14 Gbps versus
+								  GTX1080's GDDR5X at 10Gbps. RTX 2080 also has doubled the size of the its L2 cache compared to GTX1080</p>
+								  <p>Not surprisingly, the higher performance also introduced higher energy comsumption. At their maximum, GTX 1080 would only produce
+									  180W of power whereas RTX 2080 theoretically goes up to 225W, despite that the latter has a slightly lower base clock rate than
+									  the former. RTX 2080 nearly doubles the amount of transistors at 13.6 billions versus 7.2 billion transistors of GTX 1080. The fact that 
+									  RTX 2080 upgraded its manufacturing process to 12nm to 16nm, but it didn't help the chip to be still nearly twice the size of
+									  that inside GTX 1080.
+								  </p>
 								</article>
 							</div>
 
@@ -278,7 +295,7 @@
 								</p>
 							</header>
 								<div class="col-6 col-12-medium">
-	
+
 									<!-- Contact -->
 										<section class="feature-list small">
 											<div class="row">
@@ -301,7 +318,7 @@
 												</div>
 											</div>
 										</section>
-	
+
 								</div>
 							</div>
 							<div id="copyright">
