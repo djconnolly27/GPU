@@ -23,7 +23,7 @@
 					<!-- Logo -->
 						<div id="logo">
 							<h1><a href="index.html">GPU Design</a></h1>
-							<p>Delve deeper into GPU Design</p>
+							<!-- <p>Delve deeper into GPU Design</p> -->
 						</div>
 
 					<!-- Nav -->
@@ -67,7 +67,11 @@
 
 									<p>Additionally, we can see how this architecture would benefit from hardware multithreading. This added
 									functionality would allow it to quickly switch between tasks while data is loaded, prepared, utilized, and stored.
-								As a result, the throughput of the system could increase dramatically for the price of only additional register files and virtual memory.  </p>
+								As a result, the throughput of the system could increase dramatically for the price of only additional register files and virtual memory.
+							Within the general realm of multithreading, we have fine-grained, coarse-grained, and simultaneous multithreading. Fine-grained multithreading essentially
+						relies upon switching between threads on each instruction, while coarse-grained multithreading only switches threads on long, expensive stalls. Lastly, simultaneous
+					multithreading exploits all of the resources available to it, using as many of the parallel functional units it has as it can through dynamic scheduling and register renaming.
+				Due to the enormous parallelism within GPUs, however, many if not most GPUs utilize only fine-grained multithreading. </p>
 
 									<h2>Modern GPGPU Design</h2>
 									<p>Though GPUs now utilize a variety of data flows, ranging from MIMD (Multiple Instructions,
@@ -116,7 +120,11 @@
 									<p>
 										The memory system poses serious limitation on the performance of the GPU due to its long load and store time in spite of the
 										high execution speed of the SMs and SPs. One way of hiding or mitigating the overall effect of such a deficiency is to hardware
-										multithread.
+										multithread. After the execution of every single instruction, the GPU would assign different threads from the previous ones for the SM
+										to work on regardless of the actual wait time or the lack of thereof of an instruction. This paradigm is called a fine grained multithread.
+										As a load or store instruction with long wait time is invoked, processors can move to perform calculation on data that are already available
+										and return to work on the data once the load or store is completed. While such a frequent thread change would make it take much longer to
+										finish a given set of instructions, but the overall throughput of the instructions is greatly increased.
 									</p>
 									<h2>nVidia Turing Architecture</h2>
 									<h3>Hybrid Rendering</h3>
