@@ -100,14 +100,14 @@
 									<center><p>$y_e+y_dt = y_a+\beta(y_b-y_a)+\gamma(y_c-y_a)$</p></center>
 									<center><p>$z_e+z_dt = z_a+\beta(z_b-z_a)+\gamma(z_c-z_a)$</p></center>
 									<p>which can rewritten in matrix form as the following </p>
-									<center><p>$matrix form$</p></center>
+									<center><img src="images/Ray_matrix_form.JPG" alt="Matrix Form" style="width: 30%"/></center>
 									<p>With Cramer’s rule, we know that for an matrix multiplication $\mathbf{A}\vec{x}=\vec{b}$ assuming $\mathbf{A}$ invertible,
 									the solution to $x_i$, which is the ith entry of the unknown vector, is given by</p>
 									<center><p>$x_i = \frac{det[\mathbf{A_i}]}{det[\mathbf{A}]}$</p></center>
 									<p>where $\mathbf{A_i}$ stands for the matrix $\mathbf{A}$ with ith column replaced with $\vec{b}$.</p>
-									<center><p>$\beta = \frac{\begin{vmatrix}x_e-x_a &x_c-x_a &-x_d\\y_e-y_a &y_c-y_a &-y_d\\z_e-z_a &z_c-z_a &-z_d\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}$</p></center>
-									<center><p>$\gamma= \frac{\begin{vmatrix}x_b-x_a &x_e-x_a &-x_d\\y_b-y_a &y_e-y_a &-y_d\\z_b-z_a &z_e-z_a &-z_d\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}$</p></center>
-									<center><p>$\gamma= \frac{\begin{vmatrix}x_b-x_a &x_c-x_a &x_e-x_a\\y_b-y_a &y_c-y_a &y_e-y_a\\z_b-z_a &z_c-z_a &y_e-y_a\end{vmatrix}}{\begin{vmatrix}A\end{vmatrix}}$</p></center>
+									<center><img src="images/ray_crammer_beta.JPG" alt="Crammer solution for beta" style="width: 20%"/></center>
+									<center><img src="images/ray_crammer_gamma.JPG" alt="Crammer solution for gamma" style="width: 20%"/></center>
+									<center><img src="images/ray_crammer_t.JPG" alt="Crammer solution for t" style="width: 20%"/></center>
 									<p>Nonetheless, for he given point of intersection to sit within the triangle, we would need the solutions to abide by the following</p>
 									<center><p>$\gamma + \beta < 1$</p></center>
 									<center><p>$\gamma > 0$</p></center>
@@ -119,7 +119,6 @@
 									<p>Ray-triangle intersection tests become expensive as a direct test would require checking every single triangle to determine the relevant
 										triangles. The size of the problem grows linearly with the number of triangles within a 3D scene and quickly become not manageable.
 										Various techniques can be employed to achieve sublinear performance. “Divide and conquer” with bounding boxes is one of the efficient ways to achieve the performance. We first take a look at 2D bounding box.</p>
-										<center><img src="images/bbox.jpg" alt="Barycentric coordinate system" style="width: 40%"/></center>
 									<p>For a 2D bounding box, its four edges can be represented as</p>
 									<center><p>$x = x_{min}$</p></center>
 									<center><p>$x = x_{max}$</p></center>
@@ -132,10 +131,9 @@
 									<center><p>$t_{ymax} = \frac{y_{max}-y_e}{y_d}}$</p></center>
 									<p>The only way for the light ray to intersect a box is to fulfill the following condition</p>
 									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \ne \emptyset$</p></center>
-									<p>The pseudo code for the bounding box intersection test is:</p>
 									<p>Which makes sense as if the minimum of one is larger than the maximum of the other there will not be any intersection.
 									The following picture also illustrate this principle well.</p>
-									<center><img src="images!!" alt="Insert pic 9.16" /></center>
+									<center><img src="images/bbox.jpg" alt="Barycentric coordinate system" style="width: 40%"/></center>
 									<p>The bounding box in 3D easily extend the same principle into a higher dimension.</p>
 									<center><p>$[t_{xmin}, t_{xmax}]\cup[t_{ymin}, t_{ymax}] \cup[t_{zmin}, t_{zmax}]\ne \emptyset$</p></center>
 
