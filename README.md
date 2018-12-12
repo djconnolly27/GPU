@@ -3,7 +3,7 @@
 
 ## Proposal
 ### Project Overview
-In our final project for our computer architecture course, we intend to design and implement in a high level programming language a simulation of the graphics pipeline that is happening on the software side of the Graphics Processing Unit (GPU) of a computer and to explore, on a more broad scale, the operations of GPUs. Our hope is that by creating a simulation of the pipeline in software, we will gain a better understanding of why GPUs are organized as they are and why the GPU schedules operations in the way it does, as this is our main confusion after conducting our initial research as of 11/28/18. We anticipate this will lead us to a deeper understanding of GPUs and how they interact with other elements of a computer.
+In our final project for our computer architecture course, we intend to design and implement in a high level programming language a simulation of the graphics pipeline that is happening on the software side of the Graphics Processing Unit (GPU) of a computer and to explore, on a more broad scale, the operations of GPUs. Our hope is that by creating a simulation of the pipeline in software, we will gain a better understanding of why GPUs are organized as they are and why the GPU schedules operations in the way it does, as this is our main confusion after conducting our initial research as of 11/28/18. We anticipate this will lead us to a deeper understanding of GPUs and how they interact with other elements of a computer. As of 12/4/18, we have shifted our focus to learning about the exciting area of real-time ray tracing.
 
 ### References
 Our project would take the approach introduced in [Lab 0 of CSE 467: Advanced Digital Design](https://courses.cs.washington.edu/courses/cse467/15wi/docs/prj0.pdf).
@@ -19,6 +19,9 @@ In order to develop an understanding of graphics processing units, we will inves
  - [NVIDIA RTX](https://developer.nvidia.com/rtx)
 
 ### Deliverables
+#### Update
+As of 12/4, we have decided to shift our focus towards ray tracing. There have been interesting new advances in this area of hardware and computer graphics and we hope to learn about how these advances work. We will create a website documenting our research and a poster for the live demo session.
+#### Original
 In terms of deliverables, we will produce a report demonstrating our level of GPU operation understanding and explaining the purpose and functionality of the graphics pipeline. Additionally, we will produce a codebase that demonstrates the process by which the graphics pipeline renders graphics and the GPU performs calculations in order to render those graphics. We will describe our software simulation in the report as well.
 ##### Minimum
 Our minimum deliverable will be a report detailing the algorithms we would employ over the graphics pipeline to convert vertices to pixels on a screen and what we have learned from the process.
