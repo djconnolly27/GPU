@@ -102,21 +102,21 @@
 										pixel in addition to image reconstruction and denoising to produce photorealistic images.
 									</p>
 									<h2>Multiprocessing and Multithreading</h2>
-									<p>To execute parallel instruction efficiently, GPUs today also need to exploit the parallel hardware to its extreme. Multiple
-										Streaming Multiprocessors(SM), which are built on top of Streaming Processors(SP), make up the majority of a GPU. Each 
-										SP, usually capable of both integer and floating point operations, is similar to the execution stage hardware of a single 
+									<p>To execute parallel instrucstion efficiently, GPUs today also need to exploit the parallel hardware to its extreme. Multiple
+										Streaming Multiprocessors(SM), which are built on top of Streaming Processors(SP), make up the majority of a GPU. Each
+										SP, usually capable of both integer and floating point operations, is similar to the execution stage hardware of a single
 										CPU. Multiple SPs are clustered together to make a single SM where the same instruction would be applied to all of the SPs
 										across different data. This is where single instruction multiple data is being achieved.
 									</p>
 									<p>
-										At one level higher, we would have multiple SMs that would each have their program counters. At the same
+										At a higher level, we would have multiple SMs that would each have their program counters. At the same
 										instance, each program counter would issue different instructions to their corresponding SM to execute. Multiple instruction multiple
 										data is thus demonstrated here.
 									</p>
 									<p>
-										The memory system poses serious limitation on the performance of the GPU due to its long load and store time in spite of the 
-										high execution speed of the SMs and SPs. One way of hiding or mitigating the overall effect of such a deficiency is to hardware 
-										multithread.										
+										The memory system poses serious limitation on the performance of the GPU due to its long load and store time in spite of the
+										high execution speed of the SMs and SPs. One way of hiding or mitigating the overall effect of such a deficiency is to hardware
+										multithread.
 									</p>
 									<h2>nVidia Turing Architecture</h2>
 									<h3>Hybrid Rendering</h3>
