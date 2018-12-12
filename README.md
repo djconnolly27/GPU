@@ -19,8 +19,9 @@ In order to develop an understanding of graphics processing units, we will inves
  - [NVIDIA RTX](https://developer.nvidia.com/rtx)
 
 ### Deliverables
+#### Update
 As of 12/4, we have decided to shift our focus towards ray tracing. There have been interesting new advances in this area of hardware and computer graphics and we hope to learn about how these advances work. We will create a website documenting our research and a poster for the live demo session.
-
+#### Original
 In terms of deliverables, we will produce a report demonstrating our level of GPU operation understanding and explaining the purpose and functionality of the graphics pipeline. Additionally, we will produce a codebase that demonstrates the process by which the graphics pipeline renders graphics and the GPU performs calculations in order to render those graphics. We will describe our software simulation in the report as well.
 ##### Minimum
 Our minimum deliverable will be a report detailing the algorithms we would employ over the graphics pipeline to convert vertices to pixels on a screen and what we have learned from the process.
