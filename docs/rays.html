@@ -142,7 +142,6 @@
 										a set of basic primitives such as triangles. This structure exploits coherence in a scene in order to break the primitives of a scene into groups. These groups, for example, might contain the entire scene at the highest level, similar
 									objects at the next level, a singular object at the next, and primitives at the last. The BVH we will utilize relies on an object hierarchy, which is more robust over time than a spatial hierarchy in dynamic scenes. It also contributes to better hardware performance, as
 								it can reject bounding volumes irrelevant to a given ray extremely quickly.</p>
-
 								<p>
 									It is important to consider the shape of the bounding volumes as well. To simplify and reduce the number of calculations, loosely constrained bounding volumes may seem the best option, but many rays that hit these volumes will still miss the object or primitive within them. In contrast,
 									if the bounding volume for an object is simply that object, we will waste fewer calculations but need to perform more calculations overall. As a result, we generally select volumes somewhere between these two extremes, such as parallelopipeds or spheres.
@@ -155,7 +154,7 @@
 									we redirect our search if we arrive at a leaf or miss a bounding volume. This ensures better memory usage; though more information is stored in the tree, the nodes are stored in the order they are accessed in, providing memory coherence. [Smits 1999] Another way to improve memory performance is to cache the most recently hit object and check that object and
 									the surrounding scene first with the next rays, as they will likely be directed in quite similar directions to the last ray.
 								</p>
-
+								<center><img src="images/bunny.JPG" style="width: 75%"></center>
 								<p>
 									Ray packets are another technique for optimizing the process of ray tracing. To minimize
 									the hardware necessary to construct these packets, we utilize ray packet sizes that are powers of two.
